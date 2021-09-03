@@ -1,0 +1,4 @@
+RewriteEngine On
+options -Indexes
+ErrorDocument 404 %{HTTP_HOST}
+ErrorDocument 403 %{HTTP_HOST}
