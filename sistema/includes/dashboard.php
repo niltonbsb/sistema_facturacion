@@ -15,6 +15,7 @@
 		}else{
 			$intUser = $idUser;
 		}
+		
 		$data_dash = array();
 		$query_dash = mysqli_query($conection,"CALL data_dashboard('$fechaActual','$intUser');");
 		$result_das = mysqli_num_rows($query_dash);
