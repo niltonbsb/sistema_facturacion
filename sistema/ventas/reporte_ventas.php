@@ -19,6 +19,7 @@
 	$desde = ($pagina-1) * $por_pagina;
 	$total_paginas = ceil($total_registro / $por_pagina);
 	//factura_serie = número de factura por serie
+	date_default_timezone_set('America/Caracas'); 
 	$fecha = date('Y-m-d');
 	
 	$query = mysqli_query($conection,"SELECT *
@@ -34,7 +35,7 @@
 		");
 
 	$result = mysqli_num_rows($query);
-	echo "$result";
+	echo "$fecha";
  ?>
 
 <!DOCTYPE html>
