@@ -31,8 +31,11 @@
                                                          cl.nit,
                                                          cl.nombre as cliente,
                                                          tp.tipo_pago,
-                                                         s.prefijo,s.ceros
-                                                    FROM factura f
+                                                         s.prefijo,s.ceros,
+                                                         p.coditem,
+                                                         p.descrpcion,
+                                                         df.cantidad
+                                                    FROM factura f, producto p, detallefactura df
                                                     INNER JOIN usuario u
                                                     ON f.usuario = u.idusuario
                                                     INNER JOIN cliente cl
@@ -68,6 +71,9 @@
                 <th <?php echo $style_row_head;  ?> >Fecha</th>
                 <th <?php echo $style_row_head;  ?> ><?= strtoupper(IDENTIFICACION_TRIBUTARIA); ?></th>
                 <th <?php echo $style_row_head;  ?> >Cliente</th>
+                <th <?php echo $style_row_head;  ?> >Item</th>
+                <th <?php echo $style_row_head;  ?> >Descripcion</th>
+                <th <?php echo $style_row_head;  ?> >Cantidad</th>
                 <th <?php echo $style_row_head;  ?> >Vendedor</th>
                 <th <?php echo $style_row_head;  ?> >Tipo pago</th>
                 <th <?php echo $style_row_head;  ?> >Estado</th>
@@ -86,6 +92,11 @@
                 <td <?php echo $style_row_data;  ?> > <?php echo $data['fecha'];  ?> </td>
                 <td <?php echo $style_center;  ?> > <?php echo $data['nit'];  ?> </td>
                 <td <?php echo $style_row_data;  ?> > <?php echo $data['cliente'];  ?> </td>
+
+                <td <?php echo $style_row_data;  ?> > <?php echo $data['coditem'];  ?> </td>
+                <td <?php echo $style_row_data;  ?> > <?php echo $data['descripcion'];  ?> </td>
+                <td <?php echo $style_row_data;  ?> > <?php echo $data['cantidad'];  ?> </td>
+
                 <td <?php echo $style_row_data;  ?> > <?php echo $data['vendedor'];  ?> </td>
                 <td <?php echo $style_center;  ?> > <?php echo $data['tipo_pago'];  ?> </td>
                 <td <?php echo $style_center;  ?> > <?php echo $estatus;  ?> </td>
