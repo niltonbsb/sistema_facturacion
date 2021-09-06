@@ -173,6 +173,7 @@
 				<th>Precio de Venta</th>
 				<th>Venta Total</th>
 				<th>Ganancia Bruta</th>
+				<th>Estado</th>
 			</tr>
 		<?php
 			if($result > 0){
@@ -186,22 +187,25 @@
 
 					
 			?>
-				<?php	$precio_venta_final = $data["precio_venta"] - $data["descuento"];  ?>
+				<?php	$precio_venta_final = $data["precio_venta"] - $data["descuento"];  
+					$estatus = ($data['estatus'] == 1 ) ? '<p style="color:green;">Pagado</p>' : '<p style="color:red;">Anulado</p>';
+				?>
 						<td><?php echo $data["fecha"]; ?></td>
 						<td><?php echo $data["nofactura"]; ?></td>
 						<td><?php echo $data["coditem"]; ?></td>
 						<td><?php echo $data["cantidad"]; ?></td>
-						<td><?php echo $data["producto"]; ?></td>
-						<td><?php echo $data["nombre"]; ?></td>
+						<td><?php echo $data["detalle_producto"]; ?></td>
+						<td><?php echo $data["vendedor"]; ?></td>
 						<td><?php echo "Bs."; echo $data["precio_compra"]; ?></td>
 						<td><?php echo "Bs."; echo $data["precio"]; ?></td>
-							<td><?php echo "Bs.";echo "$precio_venta_final" ?></td>
+							<td><?php echo "Bs.";echo "$precio_venta_final"; ?></td>
+							
 							<?php $gananciabruta = "$precio_venta_final" - $data["precio_compra"];  ?>
 						
 						<td><?php echo "Bs. $gananciabruta"; ?></td>
-					
+						<td><?php echo "$estatus"; ?></td>
 					<?php 
-						$total = $total + $data["efectivo"];
+						$total = $total + $precio_venta_final;
 						$resultado= "$resultado" + "$gananciabruta";
 							
 							?>
@@ -213,8 +217,8 @@
 				?>
 				
 				<tr align="right">
-					<td colspan="9"><P><h4><?php echo" Bs. $total"; ?></h4></p></td>
-					<td align="left"><P><h3><?php echo" Bs. $resultado"; ?></h3></p></td>
+					<td colspan="9"><P><h4><?php echo" Bs.$total"; ?></h4></p></td>
+					<td align="left"><P><h4><?php echo" Bs.$resultado"; ?></h4></p></td>
 				</tr>
 				
 				

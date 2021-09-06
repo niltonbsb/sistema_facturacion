@@ -86,27 +86,30 @@
 ?>
 			<tr>
                 <td <?php echo $style_row_data;  ?> > <?php echo $i;  ?> </td>
-                <td <?php echo $style_row_data;  ?> > <?php echo $data["prefijo"].'-'.formatFactura($data["factura_serie"],$data["ceros"]); ?></td>
+                <td <?php echo $style_row_data;  ?> > <?php echo $data["nofactura"]; ?></td>
                 <td <?php echo $style_row_data;  ?> > <?php echo $data['fecha'];  ?> </td>
                 <td <?php echo $style_center;  ?> > <?php echo $data['nit'];  ?> </td>
-                <td <?php echo $style_row_data;  ?> > <?php echo $data['cliente'];  ?> </td>
+                <td <?php echo $style_row_data;  ?> > <?php echo $data['nombre'];  ?> </td>
 
                 <td <?php echo $style_row_data;  ?> > <?php echo $data['coditem'];  ?> </td>
-                <td <?php echo $style_row_data;  ?> > <?php echo $data['descripcion'];  ?> </td>
+                <td <?php echo $style_row_data;  ?> > <?php echo $data['detalle_producto'];  ?> </td>
                 <td <?php echo $style_row_data;  ?> > <?php echo $data['cantidad'];  ?> </td>
 
                 <td <?php echo $style_row_data;  ?> > <?php echo $data['vendedor'];  ?> </td>
                 <td <?php echo $style_center;  ?> > <?php echo $data['tipo_pago'];  ?> </td>
                 <td <?php echo $style_center;  ?> > <?php echo $estatus;  ?> </td>
-                <td <?php echo $style_row_data;  ?> > <?php echo $data['totalfactura'];  ?> </td>
+				<?php  $precio_venta_final = $data["precio"] - $data["descuento"];  
+							
+						 ?> 
+                <td <?php echo $style_row_data;  ?> > <?php echo "$precio_venta_final";  ?> </td>
             </tr>
 <?php
-            $total += $data['totalfactura'];
+            $total += $precio_venta_final;
             $i++;
         }
  ?>
             <tr>
-                <td colspan="8">Total:</td>
+                <td colspan="11">Total:</td>
                 <td><?= $total; ?></td>
             </tr>
         </table>

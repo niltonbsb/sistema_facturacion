@@ -69,16 +69,20 @@
                 <td <?php echo $style_row_data;  ?> > <?php echo $data['vendedor'];;  ?> </td>
                 <td <?php echo $style_center;  ?> > <?php echo $data['tipo_pago'];  ?> </td>
                 <td <?php echo $style_center;  ?> > <?php echo $estatus;  ?> </td>
-                <td <?php echo $style_row_data;  ?> > <?php echo $data['totalfactura'];  ?> </td>
+					 
+				         <?php  $precio_venta_final = $data["precio"] - $data["descuento"];  
+							
+						 ?> 
+                <td <?php echo $style_row_data;  ?> > <?php echo "$precio_venta_final";  ?> </td>
             </tr>
 <?php
-            $total += $data['totalfactura'];
+            $total += $precio_venta_final;
             $i++;
         }
     }
  ?>
             <tr>
-                <td colspan="8">Total:</td>
+                <td colspan="11">Total:</td>
                 <td><?= $total; ?></td>
             </tr>
         </table>
