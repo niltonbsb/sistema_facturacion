@@ -16,42 +16,11 @@
         include "../../conexion.php";
         include "../includes/functions.php";
 
-        $dataQuery = array();
-        if(!empty($_POST['exportFilter']))
-        {
-        	$filtro = $_POST['exportFilter'];
-        	$data_query = mysqli_query($conection,$filtro);
-        }else{
-	        $data_query = mysqli_query($conection,"SELECT f.nofactura,f.factura_serie,
-                                                         DATE_FORMAT(f.fecha, '%d/%m/%Y') as fecha,
-                                                         f.totalfactura,
-                                                         f.codcliente,
-                                                         f.estatus,
-                                                         u.nombre as vendedor,
-                                                         cl.nit,
-                                                         cl.nombre as cliente,
-                                                         tp.tipo_pago,
-                                                         s.prefijo,s.ceros,
-                                                         
-                                                    FROM factura f, producto p, detallefactura df
-                                                    INNER JOIN usuario u
-                                                    ON f.usuario = u.idusuario
-                                                    INNER JOIN cliente cl
-                                                    ON f.codcliente = cl.idcliente
-                                                    INNER JOIN tipo_pago tp
-                                                    ON f.tipopago_id = tp.id_tipopago
-                                                    INNER JOIN facturas s
-                                                    ON f.serieid = s.idserie
-                                                    WHERE f.estatus != 10
-                                                    ORDER BY f.fecha DESC ");
-        }
-		$numRow = mysqli_num_rows($data_query);
-		if($numRow > 0){
-			while ($info = mysqli_fetch_assoc($data_query)) {
-				# code...
-				array_push($dataQuery,$info);
-			}
-		}
+        $filtro = $_POST['exportFilter'];
+
+
+        $query = mysqli_query($conection,$filtro);
+        $result = mysqli_num_rows($query);
 
         $style_row_head = 'style="border:1px solid #CCC;background-color:#5890cc;color:white;"';
         $style_row_data = 'style="border:1px solid #CCC; color:#555;"';
@@ -80,22 +49,24 @@
 <?php
         $i=1;
         $total= 0;
-        foreach ($dataQuery as $data)
+        if($result >0){
+        while ($data = mysqli_fetch_array($query))
         {
             $estatus = ($data['estatus'] == 1 ) ? '<p style="color:green;">Pagado</p>' : '<p style="color:red;">Anulado</p>';
-?>
+            
+?>          
 			<tr>
                 <td <?php echo $style_row_data;  ?> > <?php echo $i;  ?> </td>
-                <td <?php echo $style_row_data;  ?> > <?php echo $data["prefijo"].'-'.formatFactura($data["factura_serie"],$data["ceros"]); ?></td>
+                <td <?php echo $style_row_data;  ?> > <?php echo $data["nofactura"];?></td>
                 <td <?php echo $style_row_data;  ?> > <?php echo $data['fecha'];  ?> </td>
                 <td <?php echo $style_center;  ?> > <?php echo $data['nit'];  ?> </td>
-                <td <?php echo $style_row_data;  ?> > <?php echo $data['cliente'];  ?> </td>
+                <td <?php echo $style_row_data;  ?> > <?php echo $data['nombre'];  ?> </td>
 
                 <td <?php echo $style_row_data;  ?> > <?php echo $data['coditem'];  ?> </td>
-                <td <?php echo $style_row_data;  ?> > <?php echo $data['descripcion'];  ?> </td>
+                <td <?php echo $style_row_data;  ?> > <?php echo $data['detalle_producto'];  ?> </td>
                 <td <?php echo $style_row_data;  ?> > <?php echo $data['cantidad'];  ?> </td>
 
-                <td <?php echo $style_row_data;  ?> > <?php echo $data['vendedor'];  ?> </td>
+                <td <?php echo $style_row_data;  ?> > <?php echo $data['vendedor'];;  ?> </td>
                 <td <?php echo $style_center;  ?> > <?php echo $data['tipo_pago'];  ?> </td>
                 <td <?php echo $style_center;  ?> > <?php echo $estatus;  ?> </td>
                 <td <?php echo $style_row_data;  ?> > <?php echo $data['totalfactura'];  ?> </td>
@@ -104,6 +75,7 @@
             $total += $data['totalfactura'];
             $i++;
         }
+    }
  ?>
             <tr>
                 <td colspan="8">Total:</td>

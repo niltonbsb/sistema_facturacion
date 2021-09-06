@@ -117,11 +117,11 @@
 										WHERE  $where $whereCl $whereUs $wherePago and f.estatus != 10
 									  	ORDER BY f.fecha DESC ";
 
-	$query_venta = "SELECT *
-										FROM detallefactura df, producto p, factura f, usuario u
-
-										WHERE   f.usuario= u.idusuario AND df.codproducto = p.codproducto and df.nofactura=f.nofactura  and f.fecha  
-												BETWEEN '$x' and '$y'
+										$query_venta = "SELECT f.usuario, u.idusuario, df.codproducto, p.codproducto, df.nofactura, f.nofactura, f.tipopago_id, tp.id_tipopago, f.codcliente, c.idcliente,f.nofactura, f.fecha,c.nit,c.nombre,p.coditem,p.producto, p.descripcion as detalle_producto,df.cantidad,u.nombre as vendedor, tp.tipo_pago, f.totalfactura, 
+										p.precio_compra, p.precio, f.descuento, f.efectivo, df.precio_venta, f.estatus
+										FROM detallefactura df, producto p, factura f, usuario u, tipo_pago tp, cliente c
+										
+										WHERE   f.usuario= u.idusuario AND df.codproducto = p.codproducto and df.nofactura=f.nofactura  and f.tipopago_id = tp.id_tipopago and f.codcliente = c.idcliente AND f.fecha	BETWEEN '$x' and '$y'
 										
 										
 									  	";
@@ -144,8 +144,8 @@
 		<h1><i class="fas fa-user"></i> Lista de ventas</h1>
 		<a href="nueva_venta.php" class="btn_new"><i class="fas fa-plus"></i></i> Nueva venta</a>
 		<?php if( $result > 0  and ($_SESSION['rol'] == 1 or $_SESSION['rol'] == 2)){ ?>
-		<form action="exportar.php" method="post" class="formExport" >
-			<input type="hidden" name="exportFilter" id="exportFilter" value="<?php echo $queryExport; ?>">
+		<form action="exportar_venta.php" method="post" class="formExport" >
+			<input type="hidden" name="exportFilter" id="exportFilter" value="<?php echo $query_venta; ?>">
 			<button type="submit" class="bntExport">  <i class="fas fa-file-excel"></i> Exportar Filtro</button>
 		</form>
 		<?php } ?>
