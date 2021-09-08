@@ -183,7 +183,7 @@ select{
     padding: 5px;
 }
 .imgLogo img{
-	width: 100%;
+	margin-left:150px;
 }
 .page{
 	padding-top: 110px;
@@ -212,6 +212,7 @@ select{
 	margin: auto;
 	background-color: #EDEEEF !important;
 	padding-top: 116px;
+	
 }
 .item_prod {
     margin-bottom: 25px;

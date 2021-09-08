@@ -38,7 +38,7 @@
 			}
 			if(!empty(LOGO_EMPRESA))
 			{
-				$logoEmpresa = '<a href="'.$base_url.'" class="imgLogo"><img src="'.$base_url.'/sistema/img/'.LOGO_EMPRESA.'" alt="logo"></a>';
+				$logoEmpresa = '<a href="'.$base_url.'" class="imgLogo"><img " src="'.$base_url.'/sistema/img/'.LOGO_EMPRESA.'" width="220px" height ="80px" alt="logo"></a>';
 			}
 		 ?>
 	    <div class="varinfo">

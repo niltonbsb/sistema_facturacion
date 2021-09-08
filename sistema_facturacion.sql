@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-09-2021 a las 23:16:21
+-- Tiempo de generación: 09-09-2021 a las 00:15:47
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 7.3.29
 
@@ -355,7 +355,9 @@ CREATE TABLE `categoria` (
 INSERT INTO `categoria` (`idcategoria`, `categoria`, `descripcion`, `subcategoria`, `parent_categoria`, `dateadd`, `usuarioid`, `estatus`) VALUES
 (1, 'Herramientas Eléctricas', 'Herramientas Solo A Bateria', 0, 0, '2020-10-27 23:54:42', 1, 1),
 (2, 'Herramientas Manuales', 'De Todos Los Tipos', 0, 0, '2021-08-05 10:57:45', 1, 1),
-(3, 'Herramientas Medición', 'Niveles Láser, Distanciometros', 0, 0, '2021-09-01 17:07:03', 1, 1);
+(3, 'Herramientas Medición', 'Niveles Láser, Distanciometros', 0, 0, '2021-09-01 17:07:03', 1, 1),
+(4, 'Baterías Milwaukee', 'Todas Las Baterías Milwaukee M18 Y M12', 0, 0, '2021-09-06 10:31:42', 1, 1),
+(5, 'Juego De Puntas Milwaukee', 'Juegos De Puntas Mix Milwaukee', 0, 0, '2021-09-06 14:59:13', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -405,16 +407,21 @@ CREATE TABLE `cliente` (
 
 INSERT INTO `cliente` (`idcliente`, `nit`, `nombre`, `telefono`, `correo`, `clave`, `cod_temp`, `direccion`, `dateadd`, `usuario_id`, `estatus`) VALUES
 (1, 'CF', 'Consumidor Final', NULL, '', '', '', 'Ciudad', '2020-10-27 23:51:13', 1, 1),
-(2, '123456', 'Francisco Arana', 45678974, 'ff@info.com', '', '', 'Ciudad', '2020-10-28 00:03:25', 1, 1),
-(3, '', 'henry gonzales', 582, '', '', '', '573 NE 69th', '2021-08-05 14:22:35', 1, 1),
+(2, '123456', 'Francisco Arana', 45678974, 'ff@info.com', '', '', 'Ciudad', '2020-10-28 00:03:25', 1, 0),
+(3, '', 'henry gonzales', 582, '', '', '', '573 NE 69th', '2021-08-05 14:22:35', 1, 0),
 (4, '5229263017', 'jose gomez', 2147483647, '', '', '', 'Av. capitan ustariz', '2021-08-05 17:07:17', 1, 1),
-(5, '5229263', 'Nilton', 2147483647, 'gomeznil1704@gmail.com', '', '', '573 NE 69th', '2021-08-05 17:51:46', 1, 1),
+(5, '5229263', 'Nilton', 2147483647, 'gomeznil1704@gmail.com', '', '', '573 NE 69th', '2021-08-05 17:51:46', 1, 0),
 (6, '345671212', 'Antonio Perez', 71722615, 'anto@gmail.com', '', '', 'Capitan Ustariz', '2021-08-05 17:52:46', 1, 1),
-(7, '852693', 'Henry Gonzalez', 703048952, 'henry@gmail.com', '', '', 'sacaba', '2021-08-09 08:51:37', 1, 1),
+(7, '852693', 'Henry Gonzalez', 703048952, 'henry@gmail.com', '', '', 'sacaba', '2021-08-09 08:51:37', 1, 0),
 (8, '6405706', 'Jose Gomez', 67598258, '', '', '', 'Chimore #1543', '2021-08-17 17:18:16', 1, 1),
 (9, '8691018', 'Jaime Jose Ledezma Fulguera', 75989599, 'jambletsillo@gmail.com', '', '', 'Av. siglo XX entre Elena Moyano y O. Barrientos', '2021-08-19 17:56:07', 1, 1),
 (10, '6007210019', 'Grover Calle Flores', 75231633, 'asd@hotmail.com', '', '', 'La Paz', '2021-09-02 14:54:21', 1, 1),
-(11, '6787689', 'Wilfredo Gutierrez', 8957452, '', '', '', 'heroinas', '2021-09-03 11:28:54', 1, 1);
+(11, '6787689', 'Wilfredo Gutierrez', 8957452, '', '', '', 'heroinas', '2021-09-03 11:28:54', 1, 1),
+(12, '2345', 'Anderson Cusi', 77758945, '', '', '', 'La Paz', '2021-09-06 10:36:44', 1, 1),
+(13, '177906026', 'Retry SRL', 71280305, 'retryegmm@gmail.com', '', '', 'Av. 6 de marzo Nº 2152 La Paz', '2021-09-06 14:45:37', 1, 1),
+(14, '154262027', 'Ende Andina S.A.M.', 4664001, '', '', '', 'Entre Rios', '2021-09-06 16:35:19', 1, 1),
+(15, '3369652', 'Gabriel Soria Yoshinaga', 78855516, 'gaboyoshi@gmail.com', '', '', 'Cochabamba', '2021-09-08 11:25:34', 1, 1),
+(16, '3748192', 'Daniel Vega', 76943003, 'daniel_vm83@hotmail.com', '', '', 'Cochabamba', '2021-09-08 15:32:27', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -479,7 +486,7 @@ CREATE TABLE `configuracion` (
 --
 
 INSERT INTO `configuracion` (`id`, `nit`, `nombre`, `razon_social`, `logotipo`, `telefono`, `whatsapp`, `email`, `direccion`, `impuesto`, `moneda`, `simbolo_moneda`, `zona_horaria`, `sitio_web`, `email_factura`, `email_pedidos`, `facebook`, `instagram`, `identificacion_cliente`, `identificacion_tributaria`, `separador_millares`, `separador_decimales`) VALUES
-(1, '6405706018', 'Herramienta Eléctrica Bolivia ', 'Unipersonal', 'logo_empresa.jpg', '6759825', '67598258', 'nilton_bsb@hotmail.com', 'Av. capitan ustariz Esq. Zoilo Linares', 'IVA', 'Bolivianos', 'Bs.', 'America/Caracas', 'https://www.herramientaelectrica.com.bo', 'nilton_bsb@hotmail.com', 'nilton_bsb@hotmail.com', 'https://www.facebook.com/MilwaukeeToolBolivia', '', 'CI o NIT', 'NIT', ',', ',');
+(1, '6405706018', 'Herramienta Eléctrica Bolivia ', 'Unipersonal', 'logo_empresa.jpg', '4435693', '67598258', 'nilton_bsb@hotmail.com', 'Av. capitan ustariz Esq. Zoilo Linares', 'IVA', 'Bolivianos', 'Bs.', 'America/Caracas', 'https://www.herramientaelectrica.com.bo', 'nilton_bsb@hotmail.com', 'nilton_bsb@hotmail.com', 'https://www.facebook.com/MilwaukeeToolBolivia', 'https://www.instagram.com/milwaukeetoolbolivia/', 'CI o NIT', 'NIT', ',', ',');
 
 -- --------------------------------------------------------
 
@@ -538,7 +545,14 @@ INSERT INTO `detallefactura` (`correlativo`, `nofactura`, `codproducto`, `cantid
 (11, 11, 2, 1, '3500.00', 1),
 (12, 11, 80, 1, '430.00', 1),
 (13, 12, 78, 1, '3200.00', 1),
-(14, 13, 81, 1, '90.00', 1);
+(14, 13, 81, 1, '90.00', 1),
+(15, 14, 82, 1, '1400.00', 1),
+(16, 15, 83, 1, '1500.00', 1),
+(17, 16, 84, 1, '660.00', 1),
+(18, 17, 85, 1, '16500.00', 1),
+(19, 18, 33, 1, '3500.00', 1),
+(20, 19, 32, 1, '350.00', 1),
+(21, 20, 44, 1, '170.00', 1);
 
 -- --------------------------------------------------------
 
@@ -662,9 +676,16 @@ INSERT INTO `factura` (`nofactura`, `serieid`, `factura_serie`, `fecha`, `usuari
 (8, 1, 8, '2021-08-25', 1, 8, '2650.00', '130.00', 1, '2520.00', '2021-08-25 14:41:07', 1),
 (9, 1, 9, '2021-08-25', 1, 8, '700.00', '60.00', 1, '690.00', '2021-08-25 16:18:32', 1),
 (10, 1, 10, '2021-08-26', 1, 4, '350.00', '30.00', 1, '320.00', '2021-08-26 10:25:22', 1),
-(11, 1, 11, '2021-09-02', 1, 1, '3930.00', '200.00', 1, '3730.00', '2021-09-02 16:55:00', 1),
+(11, 1, 11, '2021-09-02', 1, 1, '3830.00', '200.00', 1, '3730.00', '2021-09-02 16:55:00', 1),
 (12, 1, 12, '2021-09-03', 1, 11, '3200.00', '200.00', 1, '3000.00', '2021-09-03 11:29:08', 1),
-(13, 1, 13, '2021-09-03', 1, 1, '90.00', '0.00', 1, '90.00', '2021-09-03 14:47:50', 1);
+(13, 1, 13, '2021-09-03', 1, 1, '90.00', '0.00', 1, '90.00', '2021-09-03 14:47:50', 1),
+(14, 1, 14, '2021-09-06', 1, 12, '1400.00', '200.00', 1, '1200.00', '2021-09-06 10:37:11', 1),
+(15, 1, 15, '2021-09-06', 1, 12, '1500.00', '100.00', 1, '1400.00', '2021-09-06 10:39:42', 1),
+(16, 1, 16, '2021-09-06', 1, 12, '660.00', '160.00', 1, '500.00', '2021-09-06 10:41:30', 1),
+(17, 1, 17, '2021-09-06', 1, 13, '16500.00', '500.00', 1, '16000.00', '2021-09-06 14:45:54', 1),
+(18, 1, 18, '2021-09-06', 1, 14, '3500.00', '0.00', 1, '3500.00', '2021-09-06 16:35:33', 1),
+(19, 1, 19, '2021-09-06', 1, 14, '350.00', '20.00', 1, '330.00', '2021-09-06 16:43:37', 1),
+(20, 1, 20, '2021-09-06', 1, 14, '170.00', '10.00', 1, '160.00', '2021-09-06 16:44:16', 1);
 
 -- --------------------------------------------------------
 
@@ -823,8 +844,8 @@ INSERT INTO `producto` (`codproducto`, `codebar`, `producto`, `descripcion`, `ca
 (16, '89990', 'Taladro Percutor M18', 'Taladro Percutor con dos baterias de 5 Amp, cargafor 220v y maletin', 1, 1, 1, '1950.00', '2650.00', 1, 8, 1, 1, '2021-08-10 16:37:14', 1, 1, 'img_463cfaee1387d2f4e3a71140e6e706fa.jpg', '2804-22'),
 (18, '345678', 'Alicate pelacable Milwaukee', 'Alicate pelacable 6 en 1', 2, 1, 1, '200.00', '350.00', 1, 47, 1, 1, '2021-08-25 16:16:07', 1, 1, 'img_d2c5c14c86bea4c9d4c0593349ae1aee.jpg', '48-22-3079'),
 (31, '78654', 'Juego de Taladros Milwaukee M12', 'Juego de Taladros Milwaukee M12 con bateria de 2 Amp. y Bateria de 4 Amp. cargador y Bolso', 1, 1, 1, '1700.00', '2350.00', 1, 15, 1, 1, '2021-08-30 16:13:45', 1, 1, 'img_87d91f784495b4193af4de09fd312016.jpg', '2598-22'),
-(32, '45247235331', 'Brocas Titanio Milwaukee', 'Juego de Brocas Milwaukee de 15 unidades de entrada Hexagonal', 2, 1, 1, '170.00', '350.00', 1, 11, 1, 1, '2021-08-30 16:30:22', 1, 1, 'img_5ef7b799e1bf5c3a505c477ec2ccd575.jpg', '48-89-4630'),
-(33, 'J40AD20160', 'Llave de Impacto 3/4', 'Llave de Impacto Milwaukee M18 3/4\" de 1500 libras de torque Solo herramienta Suelta', 1, 1, 1, '2050.00', '3500.00', 1, 1, 1, 1, '2021-08-30 16:59:08', 1, 1, 'img_04e6bfe967b3b9a5ddb2e5bb851d7317.jpg', '2864-20'),
+(32, '45247235331', 'Brocas Titanio Milwaukee', 'Juego de Brocas de Titanio Milwaukee de 15 unidades de entrada Hexagonal', 2, 1, 1, '170.00', '350.00', 1, 10, 1, 1, '2021-08-30 16:30:22', 1, 1, 'img_5ef7b799e1bf5c3a505c477ec2ccd575.jpg', '48-89-4630'),
+(33, 'J40AD20160', 'Llave de Impacto 3/4', 'Llave de Impacto Milwaukee M18 3/4\" de 1500 libras de torque Solo herramienta Suelta', 1, 1, 1, '2050.00', '3500.00', 1, 0, 1, 1, '2021-08-30 16:59:08', 1, 1, 'img_04e6bfe967b3b9a5ddb2e5bb851d7317.jpg', '2864-20'),
 (34, '984521321', 'Amoladora Milwaukee M18 4 1/2', 'Amoladora Milwaukee M18 de 4 1/2\" a 5\" de 8500 RPM solo herramienta, rapid stop y ajusta manual.', 1, 1, 1, '1557.00', '2200.00', 1, 2, 1, 1, '2021-08-30 17:14:36', 1, 1, 'img_96a10479e5660d366d56268123e5e4c7.jpg', '2783-20'),
 (35, '45242187065', 'Juego de Brocas Forstner', 'Juego de Brocas Forstner Milwaukee 4 piezas', 2, 1, 1, '166.00', '260.00', 1, 3, 1, 1, '2021-08-30 17:43:18', 1, 1, 'img_db4f5635c67e7ef0b159d41ebaa7495a.jpg', '48-14-0004'),
 (36, '45242356140', 'Corta Cable Milwaukee', 'Alicate Corta Cable Milwaukee con Agarre cómodo', 2, 1, 1, '176.00', '320.00', 1, 7, 1, 1, '2021-08-30 17:48:08', 1, 1, 'img_729a4bc27937b4c336396a728b0ee6ed.jpg', '48-22-6104'),
@@ -835,7 +856,7 @@ INSERT INTO `producto` (`codproducto`, `codebar`, `producto`, `descripcion`, `ca
 (41, '45242338092', 'Destornilladores de Precisión 4 piezas', 'Destornilladores de Precisión 4 piezas', 2, 1, 1, '111.00', '250.00', 1, 2, 1, 1, '2021-08-31 16:01:42', 1, 1, 'img_cb89e60ee4bfa0f3670cf17ff8c52b6c.jpg', '48-22-2604'),
 (42, '45242265688', 'Juego de Eliminación de Materias 3 piezas', 'Juego de Eliminación de Materias 3 piezas', 2, 1, 1, '170.00', '290.00', 1, 1, 1, 1, '2021-08-31 16:06:14', 1, 1, 'img_b3fe9911a46a331a9533d6937bcdf57d.jpg', '49-22-5403'),
 (43, '4524229684', 'Navaja tipo Abanico', 'Navaja tipo abanico Press and Flip', 2, 1, 1, '103.00', '150.00', 1, 7, 1, 1, '2021-08-31 16:12:14', 1, 1, 'img_2008e6e847b0ecbc6d407f2735acc740.jpg', '48-22-1990'),
-(44, '45242559282', 'Navaja pico de Halcón', 'Navaja pico de Halcón con punta Redondeada fastback', 2, 1, 1, '114.00', '170.00', 1, 2, 1, 1, '2021-08-31 16:18:05', 1, 1, 'img_6dc1091a4f6c7ee7799acdf866b26353.jpg', '48-22-1526'),
+(44, '45242559282', 'Navaja pico de Halcón', 'Navaja pico de Halcón con punta Redondeada fastback', 2, 1, 1, '114.00', '170.00', 1, 1, 1, 1, '2021-08-31 16:18:05', 1, 1, 'img_6dc1091a4f6c7ee7799acdf866b26353.jpg', '48-22-1526'),
 (45, '4524255929', 'Navaja Plegable', 'Navaja Plegable Milwaukee con diseño Camuflado', 2, 1, 1, '130.00', '250.00', 1, 9, 1, 1, '2021-08-31 16:33:33', 1, 1, 'img_7809a60840fa3f3b355d3b09931c6c78.jpg', '48-22-1524'),
 (46, '4524218003', 'Broca plana madera', 'Juego de Brocas Milwaukee planas universal 8 piezas', 2, 1, 1, '130.00', '300.00', 1, 9, 1, 1, '2021-08-31 16:56:15', 1, 1, 'img_01bca79fb645eefb99fa2d2ca4c4d2a9.jpg', '49-22-0175'),
 (47, '45242534500', 'Navaja Fastback Asistida por Muelle', 'Navaja Fastback Asistida por Muelle Milwaukee con diseño Camuflado', 2, 1, 1, '186.00', '290.00', 1, 8, 1, 1, '2021-08-31 17:03:15', 1, 1, 'img_6089b158b8c838951eff3451c3da9204.jpg', '48-22-1535'),
@@ -871,8 +892,13 @@ INSERT INTO `producto` (`codproducto`, `codebar`, `producto`, `descripcion`, `ca
 (77, '45645654646', 'Nivel Laser 180º 2 lineas', 'Nivel Laser 180º 2 lineas luz verde a bateria pila', 3, 1, 1, '1928.00', '2800.00', 1, 0, 1, 1, '2021-09-01 16:33:08', 1, 1, 'img_817869c55e228cd72bda228580e7bc4a.jpg', '3521-21'),
 (78, '45242568314', 'Nivel laser 180º 2 lineas con plomada', 'Nivel laser 180º 2 lineas luz verde con plomada Milwaukee con batería recargable', 3, 1, 1, '2206.00', '3200.00', 1, 2, 1, 1, '2021-09-01 17:01:10', 1, 1, 'img_808d8d21e95f66c31eff8484b6c4acaa.jpg', '3522-21'),
 (79, '78978987', 'Nivel Laser 360º 3 lineas', 'Nivel Laser 360º de 3 lineas verde Milwaukee con bateria recargable', 3, 1, 1, '3793.00', '5800.00', 1, 2, 1, 1, '2021-09-01 17:03:57', 1, 1, 'img_776ffce37c2419421194c78a0b9a1c34.jpg', '3632-21'),
-(80, '045242511433', 'Juego de Puntas 52 piezas', 'Juego de Puntas Milwaukee 52 piezas', 2, 1, 1, '200.00', '430.00', 1, 1, 1, 1, '2021-09-02 16:54:00', 1, 1, 'img_6af94fb4a6774d910b9f90a8bdea97be.jpg', '48-32-4025'),
-(81, '045242540389', 'Topes para Drywall 4 Piezas', 'Topes para Drywall 4 Piezas Milwaukee de 1\"', 2, 1, 1, '44.00', '90.00', 1, 1, 1, 1, '2021-09-03 14:47:22', 1, 1, 'img_7089c4cc63ce7d2db18ba36df9492fa7.jpg', '48-32-2101');
+(80, '45242511433', 'Juego de Puntas 52 piezas', 'Juego de Puntas Milwaukee 52 piezas', 5, 1, 1, '200.00', '430.00', 1, 1, 1, 1, '2021-09-02 16:54:00', 1, 1, 'img_6af94fb4a6774d910b9f90a8bdea97be.jpg', '48-32-4025'),
+(81, '45242540389', 'Topes para Drywall 4 Piezas', 'Topes para Drywall 4 Piezas Milwaukee de 1\"', 5, 1, 1, '44.00', '90.00', 1, 1, 1, 1, '2021-09-03 14:47:22', 1, 1, 'img_7089c4cc63ce7d2db18ba36df9492fa7.jpg', '48-32-2101'),
+(82, '7986454521', 'Herramienta Oscilador M18', 'Herramienta Oscilador Milwaukee M18 con carbones solo herramienta', 1, 1, 1, '820.00', '1400.00', 1, 0, 1, 1, '2021-09-06 10:22:26', 1, 1, 'img_2fcb4e5e49cdfcae42b5103c91a21f40.jpg', '2626-20'),
+(83, '78964512', 'Pistola para Drywall M18', 'Pilstola para Drywall Milwaukee M18 Solo Herramienta', 1, 1, 1, '899.00', '1500.00', 1, 1, 1, 1, '2021-09-06 10:25:27', 1, 1, 'img_2779d0a2c729fbda9de48e11c16d0411.jpg', '2866-20'),
+(84, '98714785', 'Batería 5 Amp M18', 'Bateria de 5 Amp Milwaukee M18 una bateria', 4, 1, 1, '448.00', '660.00', 1, 4, 1, 1, '2021-09-06 10:30:51', 1, 1, 'img_3750a268bf965f42bcade1cf88f791cd.jpg', '48-11-1850'),
+(85, '45242536580', 'Llave de Impacto 1', 'Llave de Impacto Milwaukee de 1\" M18, con dos baterias de 12 Amp, cargador y Bolso', 1, 1, 1, '9040.00', '16500.00', 1, 0, 1, 1, '2021-09-06 14:31:12', 1, 1, 'img_1b15de9bf468e3d3e8eb411277d039fe.jpg', '2868-22HD'),
+(86, '045242542550', 'Sierra de Corte de 9\" M18', 'Sierra de Corte de 9\" Milwaukee M18 con dos baterias de 12 Amp, cargador Rapid Charge', 1, 1, 1, '6443.00', '9700.00', 1, 1, 1, 1, '2021-09-07 09:22:23', 1, 1, 'img_42ed37c285389965d7868ecd9351b867.jpg', '2786-22HD');
 
 -- --------------------------------------------------------
 
@@ -1212,7 +1238,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idcategoria` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idcategoria` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria_producto`
@@ -1224,7 +1250,7 @@ ALTER TABLE `categoria_producto`
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `compra`
@@ -1242,7 +1268,7 @@ ALTER TABLE `contacto_pedido`
 -- AUTO_INCREMENT de la tabla `detallefactura`
 --
 ALTER TABLE `detallefactura`
-  MODIFY `correlativo` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `correlativo` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_pedido`
@@ -1254,7 +1280,7 @@ ALTER TABLE `detalle_pedido`
 -- AUTO_INCREMENT de la tabla `detalle_temp`
 --
 ALTER TABLE `detalle_temp`
-  MODIFY `correlativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=577;
+  MODIFY `correlativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=585;
 
 --
 -- AUTO_INCREMENT de la tabla `documento`
@@ -1272,7 +1298,7 @@ ALTER TABLE `entradas`
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `nofactura` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `nofactura` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `facturas`
@@ -1308,7 +1334,7 @@ ALTER TABLE `presentacion_producto`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `codproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `codproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`

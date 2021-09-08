@@ -2,7 +2,9 @@
 		<div class="fcontain">
 			<div class="direccion">
 				<?= $logoEmpresa ?><br>
-				<span><?= DIRECCION_EMPRESA; ?></span>
+				<span><?= DIRECCION_EMPRESA; ?></span><br>
+				<span><?= "      Telefono: ".TELEFONO_EMPRESA; ?></span>
+				<span><?= "Celular: ". WHATSAPP; ?></span>
 			</div>
 			<div class="footerMenu">
 				<span class="titleMenuFooter">MENÚ</span>
@@ -18,7 +20,7 @@
 				<a href="mailto: <?= EMAIL_EMPRESA;  ?>"><?= EMAIL_EMPRESA; ?></a>
 				<ul>
 					<li><a href="<?= FACEBOOK; ?>" target="_blank"><i class="fab fa-facebook"></i></a></li>
-					<li><a href="<?= WHATSAPP; ?>" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+					<li><a href="https://api.whatsapp.com/send?phone='.WHATSAPP.'&amp;text=Hola!%20Me%20pueden%20apoyar" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
 					<li><a href="<?= INSTAGRAM; ?>" target="_blank"><i class="fab fa-instagram"></i></a></li>	
 				</ul>
 			</div>

@@ -55,7 +55,10 @@
 			border: 2px solid #0a4661;
 		}
 		.logo_factura{
-			width: 30%;
+			width: 20%;
+		}
+		.logo_factura_index{
+			width : 50%;
 		}
 		.logo_factura img{
 			width: 150px;
@@ -151,7 +154,7 @@
 	<table id="factura_head">
 		<tr>
 			<td class="logo_factura">
-				<img style="width: 70px;" class="logo" src="<?php echo $base_url.'/sistema/img/'.LOGO_EMPRESA; ?>" alt="logo">
+				<img style="width: 220px;" class="logo" src="<?php echo $base_url.'/sistema/img/'.LOGO_EMPRESA; ?>" alt="logo">
 			</td>
 			<td class="info_empresa">
 					<span class="h2"><?php echo NOMBRE_EMPESA; ?></span>
