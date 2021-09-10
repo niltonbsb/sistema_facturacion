@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-09-2021 a las 00:15:47
+-- Tiempo de generación: 11-09-2021 a las 00:17:07
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 7.3.29
 
@@ -357,7 +357,8 @@ INSERT INTO `categoria` (`idcategoria`, `categoria`, `descripcion`, `subcategori
 (2, 'Herramientas Manuales', 'De Todos Los Tipos', 0, 0, '2021-08-05 10:57:45', 1, 1),
 (3, 'Herramientas Medición', 'Niveles Láser, Distanciometros', 0, 0, '2021-09-01 17:07:03', 1, 1),
 (4, 'Baterías Milwaukee', 'Todas Las Baterías Milwaukee M18 Y M12', 0, 0, '2021-09-06 10:31:42', 1, 1),
-(5, 'Juego De Puntas Milwaukee', 'Juegos De Puntas Mix Milwaukee', 0, 0, '2021-09-06 14:59:13', 1, 1);
+(5, 'Juego De Puntas Milwaukee', 'Juegos De Puntas Mix Milwaukee', 0, 0, '2021-09-06 14:59:13', 1, 1),
+(6, 'Guantes Milwaukee', 'Toda Clase De Guantes Milwaukee', 0, 0, '2021-09-09 10:45:52', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -421,7 +422,8 @@ INSERT INTO `cliente` (`idcliente`, `nit`, `nombre`, `telefono`, `correo`, `clav
 (13, '177906026', 'Retry SRL', 71280305, 'retryegmm@gmail.com', '', '', 'Av. 6 de marzo Nº 2152 La Paz', '2021-09-06 14:45:37', 1, 1),
 (14, '154262027', 'Ende Andina S.A.M.', 4664001, '', '', '', 'Entre Rios', '2021-09-06 16:35:19', 1, 1),
 (15, '3369652', 'Gabriel Soria Yoshinaga', 78855516, 'gaboyoshi@gmail.com', '', '', 'Cochabamba', '2021-09-08 11:25:34', 1, 1),
-(16, '3748192', 'Daniel Vega', 76943003, 'daniel_vm83@hotmail.com', '', '', 'Cochabamba', '2021-09-08 15:32:27', 1, 1);
+(16, '3748192', 'Daniel Vega', 76943003, 'daniel_vm83@hotmail.com', '', '', 'Cochabamba', '2021-09-08 15:32:27', 1, 1),
+(17, '4051571', 'Marcelo Hurtado Velasquez', 72452708, '', '', '', 'Oruro', '2021-09-10 18:12:47', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -552,7 +554,8 @@ INSERT INTO `detallefactura` (`correlativo`, `nofactura`, `codproducto`, `cantid
 (18, 17, 85, 1, '16500.00', 1),
 (19, 18, 33, 1, '3500.00', 1),
 (20, 19, 32, 1, '350.00', 1),
-(21, 20, 44, 1, '170.00', 1);
+(21, 20, 44, 1, '170.00', 1),
+(22, 21, 2, 1, '3500.00', 1);
 
 -- --------------------------------------------------------
 
@@ -685,7 +688,8 @@ INSERT INTO `factura` (`nofactura`, `serieid`, `factura_serie`, `fecha`, `usuari
 (17, 1, 17, '2021-09-06', 1, 13, '16500.00', '500.00', 1, '16000.00', '2021-09-06 14:45:54', 1),
 (18, 1, 18, '2021-09-06', 1, 14, '3500.00', '0.00', 1, '3500.00', '2021-09-06 16:35:33', 1),
 (19, 1, 19, '2021-09-06', 1, 14, '350.00', '20.00', 1, '330.00', '2021-09-06 16:43:37', 1),
-(20, 1, 20, '2021-09-06', 1, 14, '170.00', '10.00', 1, '160.00', '2021-09-06 16:44:16', 1);
+(20, 1, 20, '2021-09-06', 1, 14, '170.00', '10.00', 1, '160.00', '2021-09-06 16:44:16', 1),
+(21, 1, 21, '2021-09-10', 1, 17, '3500.00', '250.00', 1, '3250.00', '2021-09-10 18:12:51', 1);
 
 -- --------------------------------------------------------
 
@@ -840,7 +844,7 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`codproducto`, `codebar`, `producto`, `descripcion`, `categoria`, `marca_id`, `presentacion_id`, `precio_compra`, `precio`, `impuesto_id`, `existencia`, `existencia_minima`, `ubicacion_id`, `date_add`, `usuario_id`, `estatus`, `foto`, `coditem`) VALUES
-(2, '2975545645', 'Juego de Taladros Milwaukee M18', 'Juego de Taladros Milwaukee con dos baterias de 5 Amp , cargador y maletín', 1, 1, 1, '2500.00', '3500.00', 1, 26, 1, 1, '2021-08-05 11:02:01', 2, 1, 'img_ee9b47dbadcbe07d58f77dc6f2f84b81.jpg', '2997-22'),
+(2, '2975545645', 'Juego de Taladros Milwaukee M18', 'Juego de Taladros Milwaukee con dos baterias de 5 Amp , cargador y maletín', 1, 1, 1, '2571.00', '3500.00', 1, 25, 1, 1, '2021-08-05 11:02:01', 2, 1, 'img_ee9b47dbadcbe07d58f77dc6f2f84b81.jpg', '2997-22'),
 (16, '89990', 'Taladro Percutor M18', 'Taladro Percutor con dos baterias de 5 Amp, cargafor 220v y maletin', 1, 1, 1, '1950.00', '2650.00', 1, 8, 1, 1, '2021-08-10 16:37:14', 1, 1, 'img_463cfaee1387d2f4e3a71140e6e706fa.jpg', '2804-22'),
 (18, '345678', 'Alicate pelacable Milwaukee', 'Alicate pelacable 6 en 1', 2, 1, 1, '200.00', '350.00', 1, 47, 1, 1, '2021-08-25 16:16:07', 1, 1, 'img_d2c5c14c86bea4c9d4c0593349ae1aee.jpg', '48-22-3079'),
 (31, '78654', 'Juego de Taladros Milwaukee M12', 'Juego de Taladros Milwaukee M12 con bateria de 2 Amp. y Bateria de 4 Amp. cargador y Bolso', 1, 1, 1, '1700.00', '2350.00', 1, 15, 1, 1, '2021-08-30 16:13:45', 1, 1, 'img_87d91f784495b4193af4de09fd312016.jpg', '2598-22'),
@@ -898,7 +902,24 @@ INSERT INTO `producto` (`codproducto`, `codebar`, `producto`, `descripcion`, `ca
 (83, '78964512', 'Pistola para Drywall M18', 'Pilstola para Drywall Milwaukee M18 Solo Herramienta', 1, 1, 1, '899.00', '1500.00', 1, 1, 1, 1, '2021-09-06 10:25:27', 1, 1, 'img_2779d0a2c729fbda9de48e11c16d0411.jpg', '2866-20'),
 (84, '98714785', 'Batería 5 Amp M18', 'Bateria de 5 Amp Milwaukee M18 una bateria', 4, 1, 1, '448.00', '660.00', 1, 4, 1, 1, '2021-09-06 10:30:51', 1, 1, 'img_3750a268bf965f42bcade1cf88f791cd.jpg', '48-11-1850'),
 (85, '45242536580', 'Llave de Impacto 1', 'Llave de Impacto Milwaukee de 1\" M18, con dos baterias de 12 Amp, cargador y Bolso', 1, 1, 1, '9040.00', '16500.00', 1, 0, 1, 1, '2021-09-06 14:31:12', 1, 1, 'img_1b15de9bf468e3d3e8eb411277d039fe.jpg', '2868-22HD'),
-(86, '045242542550', 'Sierra de Corte de 9\" M18', 'Sierra de Corte de 9\" Milwaukee M18 con dos baterias de 12 Amp, cargador Rapid Charge', 1, 1, 1, '6443.00', '9700.00', 1, 1, 1, 1, '2021-09-07 09:22:23', 1, 1, 'img_42ed37c285389965d7868ecd9351b867.jpg', '2786-22HD');
+(86, '045242542550', 'Sierra de Corte de 9\" M18', 'Sierra de Corte de 9\" Milwaukee M18 con dos baterias de 12 Amp, cargador Rapid Charge', 1, 1, 1, '6443.00', '9700.00', 1, 1, 1, 1, '2021-09-07 09:22:23', 1, 1, 'img_42ed37c285389965d7868ecd9351b867.jpg', '2786-22HD'),
+(87, '45242556458', 'Guantes de Demolición de Impacto S', 'Guantes de Demolición de Impacto Milwaukee de 7\"/S', 6, 1, 1, '168.00', '280.00', 1, 11, 1, 1, '2021-09-09 11:01:41', 1, 1, 'img_65edbeba134a14cdc73b55c7cb532be6.jpg', '48-22-8750'),
+(88, '045242556465', 'Guantes de Demolición de Impacto M', 'Guantes de Demolición de Impacto 8\"/M Milwaukee', 6, 1, 1, '168.00', '280.00', 1, 8, 1, 1, '2021-09-09 11:15:37', 1, 1, 'img_13f904166e92f8567d5535fed4353af3.jpg', '48-22-8751'),
+(89, '045242556472', 'Guantes de Demolición de Impacto L', 'Guantes de Demolición de Impacto 9\"/L Milwaukee', 6, 1, 1, '168.00', '280.00', 1, 9, 1, 1, '2021-09-09 11:26:26', 1, 1, 'img_6362bca0cef2e4bffa429b9103749b5f.jpg', '48-22-8752'),
+(90, '045242556618', 'Guantes de Nitrilo de nivel de corte de Impacto M', 'Guantes de Nitrilo de nivel de corte de Impacto M Milwaukee', 6, 1, 1, '110.00', '190.00', 1, 7, 1, 1, '2021-09-09 11:44:15', 1, 1, 'img_b4c3b8de70b1b03b0b857dee898dc520.jpg', '48-22-8971'),
+(91, '045242556625', 'Guantes de Nitrilo de nivel de corte de Impacto L', 'Guantes de Nitrilo de nivel de corte de Impacto Milwaukee 9\"/L', 6, 1, 1, '110.00', '190.00', 1, 9, 1, 1, '2021-09-09 11:46:04', 1, 1, 'img_a195f283db7093eb3203c83df8bd4c13.jpg', '48-22-8972'),
+(92, '45242556632', 'Guantes de Nitrilo de nivel de corte de Impacto XL', 'Guantes de Nitrilo de nivel de corte de Impacto XL Milwaukee', 6, 1, 1, '110.00', '190.00', 1, 11, 1, 1, '2021-09-10 10:07:58', 1, 1, 'img_9fee7f579228a7b80ed286df43040bc9.jpg', '48-22-8973'),
+(93, '045242556816', 'Guantes de Desempeño S piel de cabra', 'Guantes de Desempeño 7\"/S piel de cabra Milwaukee', 6, 1, 1, '122.00', '280.00', 1, 18, 1, 1, '2021-09-10 10:21:24', 1, 1, 'img_d62b8d3eabf9525b54e6fc67b9708cb3.jpg', '48-73-0020'),
+(94, '045242556823', 'Guantes de Desempeño M piel de cabra', 'Guantes de Desempeño 8\"/M piel de cabra Milwaukee', 6, 1, 1, '122.00', '280.00', 1, 6, 1, 1, '2021-09-10 10:22:53', 1, 1, 'img_44905889d1f77f85bef67830cc625e38.jpg', '48-73-0021'),
+(95, '045242556830', 'Guantes de Desempeño L piel de cabra', 'Guantes de Desempeño 9\"/L piel de cabra Milwaukee', 6, 1, 1, '122.00', '280.00', 1, 11, 1, 1, '2021-09-10 10:24:36', 1, 1, 'img_4439d0d35af505a944a3ebef39ff0017.jpg', '48-73-0022'),
+(96, '45242556564', 'Guantes de piel de cabra de Impacto M', 'Guantes de piel de cabra de Impacto 8\"/M Milwaukee', 6, 1, 1, '174.00', '290.00', 1, 10, 1, 1, '2021-09-10 10:38:58', 1, 1, 'img_bacfa20212aef00c6db94134a258bb18.jpg', '48-22-8781'),
+(97, '045242556571', 'Guantes de piel de cabra de Impacto L', 'Guantes de piel de cabra de Impact 9\"/L Milwaukee', 6, 1, 1, '174.00', '290.00', 1, 10, 1, 1, '2021-09-10 10:43:11', 1, 1, 'img_4de8555166548449fa4a11b17507618f.jpg', '48-22-8782'),
+(98, '45242556588', 'Guantes de piel de cabra de Impacto XL', 'Guantes de piel de cabra de Impacto 10\"/XL Milwaukee', 6, 1, 1, '174.00', '290.00', 1, 11, 1, 1, '2021-09-10 10:45:04', 1, 1, 'img_bacfa20212aef00c6db94134a258bb18.jpg', '48-22-8783'),
+(99, '045242495085', 'Guantes de Alto Rendimiento S', 'Guantes de Alto Rendimiento 7\"/S Milwaukee', 6, 1, 1, '109.00', '180.00', 1, 11, 1, 1, '2021-09-10 10:58:48', 1, 1, 'img_80087166a278c146e1656b4e7e14dc77.jpg', '48-22-8725'),
+(100, '045242501229', 'Guantes de Alto Rendimiento M', 'Guantes de Alto Rendimiento 8\"/M Milwaukee', 6, 1, 1, '108.00', '180.00', 1, 20, 1, 1, '2021-09-10 11:00:30', 1, 1, 'img_f62f72f1ad52fb35f3ffd655dc7cbae7.jpg', '48-22-8721'),
+(101, '45242479887', 'Guantes de Alto Rendimiento L', 'Guantes de Alto Rendimiento 9\"/L Milwaukee', 6, 1, 1, '109.00', '180.00', 1, 19, 1, 1, '2021-09-10 11:02:24', 1, 1, 'img_47d298efd359c3b24e5268d95ece6276.jpg', '48-22-8722'),
+(102, '045242479894', 'Guantes de Alto Rendimiento XL', 'Guantes de Alto Rendimiento 10\"/XL Milwaukee', 6, 1, 1, '109.00', '180.00', 1, 11, 1, 1, '2021-09-10 11:03:58', 1, 1, 'img_350ed550e06b221327d927e69222139a.jpg', '48-22-8723'),
+(103, '987147852369', 'Juego de Taladros Milwaukee M18 One Key', 'Juego de Taladros Milwaukee One Key, con dos baterías de 5 Amp , cargador y maletín', 1, 1, 1, '2921.00', '3900.00', 1, 2, 1, 1, '2021-09-10 11:31:24', 1, 1, 'img_5325496af1cfca02c3340320b70f6cc0.jpg', '2996-22');
 
 -- --------------------------------------------------------
 
@@ -924,7 +945,7 @@ CREATE TABLE `proveedor` (
 --
 
 INSERT INTO `proveedor` (`codproveedor`, `nit`, `proveedor`, `contacto`, `telefono`, `correo`, `direccion`, `date_add`, `usuario_id`, `estatus`) VALUES
-(1, '123456', 'Productos SA', 'Abel', 12345645, 'info@info.com', 'Ciudad', '2020-10-27 23:52:00', 1, 1);
+(1, '123456', 'Milwaukee', 'Milwaukee', 12345645, 'milwaukee@info.com', 'EEUU', '2020-10-27 23:52:00', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1238,7 +1259,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idcategoria` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idcategoria` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria_producto`
@@ -1250,7 +1271,7 @@ ALTER TABLE `categoria_producto`
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `compra`
@@ -1268,7 +1289,7 @@ ALTER TABLE `contacto_pedido`
 -- AUTO_INCREMENT de la tabla `detallefactura`
 --
 ALTER TABLE `detallefactura`
-  MODIFY `correlativo` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `correlativo` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_pedido`
@@ -1280,7 +1301,7 @@ ALTER TABLE `detalle_pedido`
 -- AUTO_INCREMENT de la tabla `detalle_temp`
 --
 ALTER TABLE `detalle_temp`
-  MODIFY `correlativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=585;
+  MODIFY `correlativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=586;
 
 --
 -- AUTO_INCREMENT de la tabla `documento`
@@ -1298,7 +1319,7 @@ ALTER TABLE `entradas`
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `nofactura` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `nofactura` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `facturas`
@@ -1334,7 +1355,7 @@ ALTER TABLE `presentacion_producto`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `codproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `codproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`

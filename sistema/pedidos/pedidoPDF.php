@@ -149,7 +149,7 @@
 	<table id="factura_head">
 		<tr>
 			<td class="logo_factura">
-				<img class="logo" src="<?php echo $base_url.'/sistema/img/'.LOGO_EMPRESA; ?>" alt="logo">
+				<img  src="<?php echo $base_url.'/sistema/img/'.LOGO_EMPRESA; ?>" width="220" >
 			</td>
 			<td class="info_empresa">
 					<span class="h2"><?php echo NOMBRE_EMPESA; ?></span>
@@ -162,7 +162,7 @@
 			</td>
 			<td class="info_factura">
 				<div class="round">
-					<div class="h3">Pedido</div>
+					<div class="h3">Cotización</div>
 					<p>No. Pedido: <strong><?php echo $pedido['id_pedido']; ?></strong></p>
 					<p>Fecha: <strong><?php echo $pedido['fecha']; ?></strong></p>
 					<p>Estado: <strong><?php echo $txtEstado; ?></strong></p>
@@ -195,9 +195,12 @@
 	<table style="margin-bottom: 2px;">
 		<tr id="header_table">
 			<th style="width: 10%;" class="textcenter"><p>Cant.</p></th>
-			<th style="width: 60%;" class="textleft"><p>Descripción</p></th>
+			<th style="width: 30%;" class="textleft"><p>Descripción</p></th>
 			<th style="width: 15%;" class="textright"><p>Precio</p></th>
 			<th style="width: 13%;" class="textright"><p>Total</p></th>
+			<th style="width: 30%;" class="textright"><p>Imagen</p></th>
+			
+			
 			<th style="width: 2%;"></th>
 		</tr>
 	</table>
@@ -205,8 +208,12 @@
 	<table id="detalle_productos">
 			<?= $detalleTabla; ?>
 			<?= $detalleTotales; ?>
+			
+
 	</table>
-	<table border="1">
+		<table border="1">
+		
+		<!--
 		<tr>
 			<td colspan="6" style="padding: 5px;">
 				<p class="textleft">Producto Exento: E</p>
@@ -217,10 +224,13 @@
 				<p>No. filas: <?php echo $result_detalle; ?></p>
 			</td>
 		</tr>
+		
+		-->
 	</table>
 	 <div>
+		<p class="nota">Tiempo de Validez 10 Dias, Entrega Inmediata</p>
 		<p class="nota">Si usted tiene preguntas sobre este pedido, <br>pongase en contacto con nombre, teléfono y Email</p>
-		<h4 class="label_gracias">¡Gracias por tu preferencia!</h4>
+		<h4 class="label_gracias">Sin Valor Legal</h4>
 	</div> 
 	<?php //echo $imgEstado; ?>
 </div>
