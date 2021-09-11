@@ -142,11 +142,14 @@
 		.imgAnulado{
 			float: right; position: fixed; top: 0; left: 0; z-index: 2000; margin-right: 30%; margin-top: -60%;
 		}
+		.factura_head{
+
+		}
     </style>
 </head>
 <body>
-<div id="page_pdf">
-	<table id="factura_head">
+<div id="page_pdf"><br>
+	<table id="factura_head" >
 		<tr>
 			<td class="logo_factura">
 				<img  src="<?php echo $base_url.'/sistema/img/'.LOGO_EMPRESA; ?>" width="220" >
@@ -156,7 +159,7 @@
 					<p><?php echo RAZONSOCIAL_EMPESA; ?></p>
 					<p><?php echo DIRECCION_EMPRESA; ?></p>
 					<p><?php echo IDENTIFICACION_TRIBUTARIA.': '.NIT_EMPESA; ?></p>
-					<p>Teléfono: <?php echo TELEFONO_EMPRESA; ?></p>
+					<p>Teléfonos: <?php echo TELEFONO_EMPRESA.' - '.WHATSAPP; ?></p>
 					<p>Email: <?php echo EMAIL_EMPRESA; ?></p>
 					<p>Web: <?php echo WEB_EMPRESA; ?></p>
 			</td>
@@ -220,8 +223,8 @@
 				<p class="textleft">Producto Grabado: G</p>
 			</td>
 			<td style="padding: 5px;">
-				<p>No. Artículos: <?php echo $cantArticulos; ?></p>
-				<p>No. filas: <?php echo $result_detalle; ?></p>
+				<p>No. Artículos: <? // php echo $cantArticulos; ?></p>
+				<p>No. filas: <?php // echo $result_detalle; ?></p>
 			</td>
 		</tr>
 		
@@ -229,8 +232,13 @@
 	</table>
 	 <div>
 		<p class="nota">Tiempo de Validez 10 Dias, Entrega Inmediata</p>
-		<p class="nota">Si usted tiene preguntas sobre este pedido, <br>pongase en contacto con nombre, teléfono y Email</p>
+		<p class="nota">Si usted tiene preguntas sobre este pedido, <br>pongase en contacto con los telefonos.</p>
 		<h4 class="label_gracias">Sin Valor Legal</h4>
+		<p class="nota">Datos para el deposito:</p>
+		<p class="nota">Cuenta: 3500535589</p>
+		<p class="nota">Banco BNB: 3500535589</p>
+		<p class="nota">Nombre: Jose Nilton Gomez </p>
+		<p class="nota">Ci: 6405706 cb </p>
 	</div> 
 	<?php //echo $imgEstado; ?>
 </div>

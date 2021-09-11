@@ -40,7 +40,7 @@
 				$imgEstado = '<img class="imgAnulado" src="'.$base_url.'/sistema/img/entregado.png" alt="Entregado"> ';
 				$txtEstado ="<span style='color:green;'>ENTREGADO</span>";
 			}
-			$query_productos = mysqli_query($conection,"SELECT p.id_pedido,pr.codproducto,pr.producto,dp.id_detalle,dp.cantidad,dp.precio_venta,(dp.cantidad * dp.precio_venta) as precio_total,i.impuesto, pr.foto
+			$query_productos = mysqli_query($conection,"SELECT p.id_pedido,pr.descripcion,pr.codproducto,pr.producto,dp.id_detalle,dp.cantidad,dp.precio_venta,(dp.cantidad * dp.precio_venta) as precio_total,i.impuesto, pr.foto
 														FROM pedido p 
 														INNER JOIN detalle_pedido dp
 														ON p.id_pedido = dp.pedido_id
@@ -106,11 +106,11 @@
 					 
 					$detalleTabla .='<tr class="item_detalle">
 										<td style="width: 10%" class="textcenter"><p>'.$data['cantidad'].'</p></td>
-										<td style="width: 30%" class="textleft">'.$data['producto'].'</td>
+										<td style="width: 30%" class="textleft">'.$data['descripcion'].'</td>
 										<td style="width: 15%" class="textright"><p>'.SIMBOLO_MONEDA.'.'.formatCant($data['precio_venta']).'</p></td>
 										<td style="width: 13%" class="textright"><p>'.SIMBOLO_MONEDA.'.'.formatCant($data['precio_total']).'</p></td>
 										<td style="width: 30%"><img src=" '.$base_url.'/sistema/img/uploads/'."$x".'" width= "80" height="90" align="right" ></td>
-										<td style="width: 2%">'.$tpi.'</td>
+									<!--	<td style="width: 2%">'.$tpi.'</td> -->
 									</tr>';
 				}
 				//Order Array
