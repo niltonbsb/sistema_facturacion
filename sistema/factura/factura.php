@@ -154,7 +154,8 @@
 	<table id="factura_head">
 		<tr>
 			<td class="logo_factura">
-				<img style="width: 220px;" class="logo" src="<?php echo $base_url.'/sistema/img/'.LOGO_EMPRESA; ?>" alt="logo">
+				<br>
+				<img  src="<?php echo $base_url.'/sistema/img/'.LOGO_EMPRESA; ?>" width="220">
 			</td>
 			<td class="info_empresa">
 					<span class="h2"><?php echo NOMBRE_EMPESA; ?></span>
@@ -170,7 +171,7 @@
 			</td>
 			<td class="info_factura">
 				<div class="round">
-					<div class="h3">Documento</div>
+					<div class="h3">FACTURA</div>
 					<p>No. Factura: <strong><?php echo $factura['prefijo'].'-'.formatFactura($factura['factura_serie'],$factura['ceros']); ?></strong></p>
 					<p>Fecha: <strong><?php echo $factura['fecha']; ?></strong></p>
 					<p>Hora: <strong><?php echo $factura['hora']; ?></strong></p>
@@ -226,14 +227,17 @@
 	</div>
 	<table border="1">
 		<tr>
-			<td colspan="6" style="padding: 5px;">
+		<!--	<td colspan="6" style="padding: 5px;">
 				<p class="textleft">Producto Exento: E</p>
 				<p class="textleft">Producto Grabado: G</p>
 			</td>
+		
 			<td style="padding: 5px;">
 				<p>No. Artículos: <?php echo $cantArticulos; ?></p>
 				<p>No. filas: <?php echo $result_detalle; ?></p>
 			</td>
+		-->
+
 		</tr>
 	</table>
 	<div>

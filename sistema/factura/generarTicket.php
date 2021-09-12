@@ -108,10 +108,10 @@
 					$sub_total 	 = $sub_total + $data['precio_total'];
 					$detalleTabla .='<tr>
 										<td style="font-size: 10px; text-align: center; padding: 0;">'.$data['cantidad'].'</td>
-										<td style="font-size: 10px; padding: 0; ">'.$data['producto'].'</td>
+										<td style="font-size: 10px; padding: 0; ">'.$data['descripcion'].'</td>
 										<td style="font-size: 10px; text-align: right; padding: 0; "><span style="font-size:10px; padding: 0; display:block; width: 100%; ">'.SIMBOLO_MONEDA.'.'.formatCant($data['precio_venta']).'</span></td>
 										<td style="font-size: 10px; text-align: right; padding: 0; "><span style="font-size:10px; padding: 0; display:block; width: 100%; ">'.SIMBOLO_MONEDA.'.'.formatCant($data['precio_total']).'</span></td>
-										<td style="font-size: 10px; text-align: right; padding: 0; ">'.$tpi.'</td>
+										
 									</tr>';
 				}
 				//Order Array
@@ -191,9 +191,9 @@
 										<td style="font-size: 10px; text-align: right; padding: 0; "><span style="font-size:10px; padding: 0; display:block; width: 100%; ">'.SIMBOLO_MONEDA.'. '.formatCant($subTotalG).'</span></td>
 									</tr>'.
 									$rowDescuento.
-									$rowExento.
-									$rowImportes.
-									$rowImpuestos.
+								//	$rowExento.
+								//	$rowImportes.
+								//	$rowImpuestos.
 									'<tr>
 										<td colspan="3" style="font-size: 10px; text-align: right; padding: 0; ">TOTAL</td>
 										<td style="font-size: 10px; text-align: right; padding: 0; "><span style="font-size:10px; padding: 0; display:block; width: 100%; ">'.SIMBOLO_MONEDA.'. '.formatCant($totalG).'</span></td>

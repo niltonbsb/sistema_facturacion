@@ -111,7 +111,7 @@
 					$sub_total 	 = $sub_total + $data['precio_total'];
 					$detalleTabla .='<tr class="item_detalle">
 										<td style="width: 10%" class="textcenter"><p>'.$data['cantidad'].'</p></td>
-										<td style="width: 60%" class="textleft">'.$data['producto'].'</td>
+										<td style="width: 60%" class="textleft">'.$data['descripcion'].'</td>
 										<td style="width: 15%" class="textright"><p>'.SIMBOLO_MONEDA.'.'.formatCant($data['precio_venta']).'</p></td>
 										<td style="width: 13%" class="textright"><p>'.SIMBOLO_MONEDA.'.'.formatCant($data['precio_total']).'</p></td>
 										<td style="width: 2%">'.$tpi.'</td>
@@ -193,9 +193,9 @@
 										<td class="textright pading"><strong>'.SIMBOLO_MONEDA.'.'.formatCant($subTotalG).'</strong></td>
 									</tr>'.
 									$rowDescuento.
-									$rowExento.
-									$rowImportes.
-									$rowImpuestos.
+									//$rowExento.
+									//$rowImportes.
+									//$rowImpuestos.
 									'<tr>
 										<td colspan="3" class="textright pading2"><strong>TOTAL</strong></td>
 										<td class="textright pading"><strong>'.SIMBOLO_MONEDA.'.'.formatCant($totalG).'</strong></td>

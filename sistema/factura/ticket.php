@@ -47,18 +47,18 @@
 	<table id="datos_venta">
 		<tr>
 			<td style="text-align: center;">
-				<img style="width: 70px; margin: auto;" class="logo" src="<?php echo $base_url.'/sistema/img/'.LOGO_EMPRESA; ?>" alt="logo">				
+				<img style="width: 150px; margin: auto;" class="logo" src="<?php echo $base_url.'/sistema/img/'.LOGO_EMPRESA; ?>" alt="logo">				
 			</td>
 		</tr>
 		<tr><td style="text-align: center; font-size: 15px; padding: 0; font-weight: bold;"><?php echo NOMBRE_EMPESA; ?></td></tr>
 		<tr><td style="text-align: center; font-size: 12px; padding: 0; "><?php echo RAZONSOCIAL_EMPESA; ?></td></tr>
 		<tr><td style="text-align: center; font-size: 12px; padding: 0; "><?php echo DIRECCION_EMPRESA; ?></td></tr>
 		<tr><td style="text-align: center; font-size: 12px; padding: 0; "><?php echo IDENTIFICACION_TRIBUTARIA.': '.NIT_EMPESA; ?></td></tr>
-		<tr><td style="text-align: center; font-size: 12px; padding: 0; ">Teléfono: <?php echo TELEFONO_EMPRESA; ?></td></tr>
+		<tr><td style="text-align: center; font-size: 12px; padding: 0; ">Teléfono: <?php echo TELEFONO_EMPRESA.' - '.WHATSAPP; ?></td></tr>
 		<tr><td style="text-align: center; font-size: 12px; padding: 0; ">Email: <?php echo EMAIL_EMPRESA; ?></td></tr>
 		<tr><td style="text-align: center; font-size: 12px; padding: 0; ">Web: <?php echo WEB_EMPRESA; ?></td></tr>
-		<tr><td style="text-align: center; font-size: 11px; padding: 0; ">CAI: <?php echo $factura['cai']; ?></td></tr>
-		<tr><td style="text-align: center; font-size: 11px; padding: 0; ">Periodo Factura: Del<br><?php echo $factura['periodo_inicio'].' al '.$factura['periodo_fin']; ?></td></tr>
+	<!--	<tr><td style="text-align: center; font-size: 11px; padding: 0; ">CAI: <?php echo $factura['cai']; ?></td></tr>   -->
+<!--		<tr><td style="text-align: center; font-size: 11px; padding: 0; ">Periodo Factura: Del<br><?php echo $factura['periodo_inicio'].' al '.$factura['periodo_fin']; ?></td></tr>    -->
 		<tr>
 			<td style="text-align: center;padding: 0;font-size: 11px; ">
 					No. Factura. <strong><?php echo $factura['prefijo'].'-'.formatFactura($factura['factura_serie'],$factura['ceros']); ?></strong>
@@ -66,7 +66,7 @@
 		</tr>
 		<tr>
 			<td style="text-align: center;padding: 0;font-size: 11px; ">
-				Rango facturación<br>Del <?php echo $factura['prefijo'].'-'.formatFactura($factura['no_inicio'],$factura['ceros']); ?> al <?php echo $factura['prefijo'].'-'.formatFactura($factura['no_fin'],$factura['ceros']); ?>
+		<!--		Rango facturación<br>Del <?php echo $factura['prefijo'].'-'.formatFactura($factura['no_inicio'],$factura['ceros']); ?> al <?php echo $factura['prefijo'].'-'.formatFactura($factura['no_fin'],$factura['ceros']); ?>    -->
 			</td>
 		</tr>
 		<tr>
@@ -87,7 +87,7 @@
 		<tr><td style="font-size: 12px; padding: 0; "><?php echo IDENTIFICACION_TRIBUTARIA.': '.$factura['nit']; ?></td></tr>
 		<tr><td style="font-size: 12px; padding: 0; ">Nombre: <?php echo $factura['nombre']; ?></td></tr>
 		<tr><td style="font-size: 12px; padding: 0; ">Dirección: <?php echo $factura['direccion']; ?></td></tr>
-		<tr><td style="font-size: 12px; padding: 0; ">Tipo de pago: <?php echo $factura['tipo_pago']; ?></td></tr>
+<!--		<tr><td style="font-size: 12px; padding: 0; ">Tipo de pago: <?php echo $factura['tipo_pago']; ?></td></tr>  -->
 	</table>
 	<table id="venta_detalle">
 			<tr>
@@ -118,16 +118,16 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="4" style="padding: 0; text-align: center; font-size: 12px; ">No. Artículos: <?php echo $cantArticulos; ?></td>
+				<!--	<td colspan="4" style="padding: 0; text-align: center; font-size: 12px; ">No. Artículos: <?php echo $cantArticulos; ?></td>  -->
 				</tr>
 				<tr>
-					<td colspan="4" style="padding: 0; text-align: center; font-size: 12px; ">No. filas: <?php echo $result_detalle; ?></td>
+				<!--	<td colspan="4" style="padding: 0; text-align: center; font-size: 12px; ">No. filas: <?php echo $result_detalle; ?></td>   -->
 				</tr>
 				<tr>
-					<td colspan="4" style="font-size: 12px; padding:0px;">Producto Exento: E</td>
+				<!--	<td colspan="4" style="font-size: 12px; padding:0px;">Producto Exento: E</td> -->
 				</tr>
 				<tr>
-					<td colspan="4" style="font-size: 12px; padding:0px;">Producto Grabado: G</td>
+				<!--	<td colspan="4" style="font-size: 12px; padding:0px;">Producto Grabado: G</td>  -->
 				</tr>
 				<tr>
 					<td colspan="4" style="font-size: 12px; padding: 0; text-align: center; ">Si usted tiene preguntas sobre esta factura, <br>pongase en contacto con nombre, teléfono y Email</td>
