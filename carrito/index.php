@@ -24,7 +24,7 @@
 		                <h3>DATOS DE CONTACTO</h3>
 		                <form id="formPedido" action="" method="post" class="form">
 			                <div class="wd50">
-			                    <label for="nombre">Nombre completo</label>
+			                    <label for="nombre">Nombre de Contacto</label>
 			                    <input type="text" id="nombre_cliente" name="nombre_cliente" value="" required>
 			                </div>
 			                <div class="wd50">
@@ -44,7 +44,7 @@
 			                    <input type="text" id="nit" name="nit" value="" required>
 			                </div>
 			                <div class="wd60">
-			                    <label for="nombrefiscal">Nombre fiscal</label>
+			                    <label for="nombrefiscal">Nombre</label>
 			                    <input type="text" id="nombrefiscal" name="nombrefiscal" value="" required>
 			                </div>
 			                <div class="wd100">

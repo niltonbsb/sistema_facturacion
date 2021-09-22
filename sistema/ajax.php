@@ -215,9 +215,9 @@
 									<td>'.$arrSerarch['coditem'].'</td>
 									<td>'.$arrSerarch['producto'].'</td>
 									<td>'.$arrSerarch['marca'].'</td>
-									<td>'.SIMBOLO_MONEDA.'. '.formatCant($arrSerarch['precio']).'</td>
+									<td>'.SIMBOLO_MONEDA.'. '.formatCant($arrSerarch['precio_compra']).'</td>
 									<td><input type="text" name="txtCantProd_c" class="txtCantProd_c" value="1" min="1" onkeyup="fntActionPress('.$arrSerarch['codproducto'].')"></td>
-									<td><input type="text" name="txtPreProd_c" class="txtPreProd_c" value="'.$arrSerarch['precio'].'" min="1" onkeyup="fntActionPress('.$arrSerarch['codproducto'].')"></td>
+									<td><input type="text" name="txtPreProd_c" class="txtPreProd_c" value="'.$arrSerarch['precio_compra'].'" min="1" onkeyup="fntActionPress('.$arrSerarch['codproducto'].')"></td>
 									<td class="textcenter"> <a href="#" class="carAdd" onclick="event.preventDefault(); addProductCompra('.$arrSerarch['codproducto'].');"><i class="fas fa-cart-plus"></a></i></td>
 								</tr>
 							';
@@ -236,14 +236,16 @@
 		if($_POST['action'] == 'addProduct')
 		{
 
-			if(!empty($_POST['cantidad']) || !empty($_POST['precio']) || !empty($_POST['producto_id']))
+			if(!empty($_POST['cantidad']) || !empty($_POST['precio_compra']) || !empty($_POST['producto_id']))
 			{
 
 				$cantidad  	= $_POST['cantidad'];
-				$precio 	= $_POST['precio'];
+				$precio 	= $_POST['precio_compra'];
 				$producto_id= $_POST['producto_id'];
 				$usuario_id = intval($_SESSION['idUser']);
-
+				echo "$precio";
+				echo "$producto_id";
+				echo "$cantidad";
 				$query_insert = mysqli_query($conection,"INSERT INTO entradas(codproducto,cantidad,precio_compra,usuario_id)
 													 	 VALUES($producto_id,$cantidad,$precio,$usuario_id)");
 				if($query_insert){
@@ -698,10 +700,10 @@
 					$cantidad = $cantidad + $dataDetalle['cantidad'];
 				}
 
-				$queryProduct = mysqli_query($conection,"SELECT precio,existencia,impuesto_id FROM producto WHERE codproducto = $codproducto ");
+				$queryProduct = mysqli_query($conection,"SELECT precio_compra,existencia,impuesto_id FROM producto WHERE codproducto = $codproducto ");
 				$dataProduct  = mysqli_fetch_assoc($queryProduct);
 				$nueva_existencia = $dataProduct['existencia'] + $cantidad;
-                $nuevo_total = ($dataProduct['existencia'] *  $dataProduct['precio']) + ($cantidad  * $precio);
+                $nuevo_total = ($dataProduct['existencia'] *  $dataProduct['precio_compra']) + ($cantidad  * $precio);
                 $precio_venta = $nuevo_total / $nueva_existencia;
                 $impuesto = $dataProduct['impuesto_id'];
 				if($num_rowsDetalle > 0){

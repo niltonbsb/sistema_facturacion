@@ -186,7 +186,7 @@
 
 						</tr>
 						<tr>
-							<td><p><strong>Nombre:</strong> <?php echo $pedido['nombre']; ?></p></td>
+							<td><p><strong>Nombre:</strong> <?php echo $pedido['nombre_fiscal']; ?></p></td>
 							<td><p><strong>Dirección:</strong> <?php echo $pedido['direccion']; ?></p></td>
 						</tr>
 					</table>

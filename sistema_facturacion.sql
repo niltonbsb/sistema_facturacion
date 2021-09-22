@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-09-2021 a las 01:29:32
+-- Tiempo de generación: 22-09-2021 a las 02:19:13
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 7.3.29
 
@@ -28,24 +28,24 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `actualizar_precio_producto` (IN `n_cantidad` INT, IN `n_precio` DECIMAL(10,2), IN `codigo` BIGINT, IN `id_entrada` BIGINT)  BEGIN
         DECLARE nueva_existencia int;
         DECLARE nuevo_total  decimal(10,2);
-        DECLARE nuevo_precio decimal(10,2);
+        DECLARE nuevo_precio_compra decimal(10,2);
 
         DECLARE cant_actual int;
         DECLARE pre_actual decimal(10,2);
 
         DECLARE actual_existencia int;
-        DECLARE actual_precio decimal(10,2);
+        DECLARE actual_precio_compra decimal(10,2);
 
-        SELECT precio,existencia INTO actual_precio,actual_existencia FROM producto WHERE codproducto = codigo;
+        SELECT precio_compra, existencia INTO actual_precio_compra,actual_existencia FROM producto WHERE codproducto = codigo;
 
         SET nueva_existencia = actual_existencia + n_cantidad;
-        SET nuevo_total = (actual_existencia * actual_precio) + (n_cantidad * n_precio);
-        SET nuevo_precio = nuevo_total / nueva_existencia;
+        SET nuevo_total = (actual_existencia * actual_precio_compra) + (n_cantidad * n_precio);
+        SET nuevo_precio_compra = nuevo_total / nueva_existencia;
 
-        UPDATE producto SET existencia = nueva_existencia,precio_compra = n_precio, precio = nuevo_precio WHERE codproducto = codigo;
-        UPDATE entradas SET precio_compra = n_precio, precio = nuevo_precio WHERE correlativo = id_entrada;
+        UPDATE producto SET existencia = nueva_existencia,precio_compra = nuevo_precio_compra WHERE codproducto = codigo;
+        UPDATE entradas SET precio_compra = n_precio WHERE correlativo = id_entrada;
 
-        SELECT nueva_existencia,nuevo_precio;
+        SELECT nueva_existencia,nuevo_precio_compra;
 
     END$$
 
@@ -61,7 +61,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `add_detalle_temp` (IN `codigo` INT,
     SET idtmp = 0;
     SET cantcarrito = 0;
     
-    SELECT precio,existencia,impuesto_id INTO precio_actual,cant_actual,impid FROM producto WHERE codproducto = codigo;
+    SELECT precio_compra,existencia,impuesto_id INTO precio_actual,cant_actual,impid FROM producto WHERE codproducto = codigo;
     SELECT IFNULL(SUM(cantidad),0) INTO cantcarrito FROM detalle_temp WHERE codproducto = codigo AND operacion = 1;
  
     SET newcantcarrito = cantcarrito + canti;
@@ -220,7 +220,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `procesar_compra` (IN `cod_usuario` 
             SELECT existencia INTO existencia_actual FROM producto WHERE codproducto = tmp_cod_producto;
             SET nueva_existencia = existencia_actual + tmp_cant_producto;
 
-            UPDATE producto SET existencia = nueva_existencia,precio_compra = tmp_pre_producto, precio = tmp_pre_venta WHERE codproducto = tmp_cod_producto;
+            UPDATE producto SET existencia = 							nueva_existencia,precio_compra = tmp_pre_venta WHERE codproducto = tmp_cod_producto;
             SET a=a+1;
         END WHILE;
         SET total = (SELECT SUM(cantidad * precio_compra) FROM detalle_temp WHERE token_user = token AND operacion = 0);
@@ -427,10 +427,12 @@ INSERT INTO `cliente` (`idcliente`, `nit`, `nombre`, `telefono`, `correo`, `clav
 (15, '3369652', 'Gabriel Soria Yoshinaga', 78855516, 'gaboyoshi@gmail.com', '', '', 'Cochabamba', '2021-09-08 11:25:34', 1, 1),
 (16, '3748192', 'Daniel Vega', 76943003, 'daniel_vm83@hotmail.com', '', '', 'Cochabamba', '2021-09-08 15:32:27', 1, 1),
 (17, '4051571', 'Marcelo Hurtado Velasquez', 72452708, '', '', '', 'Oruro', '2021-09-10 18:12:47', 1, 1),
-(18, '5310073015', 'Oropeza', 67, 'xx@gmail.com', '', '', 'Cochabamba', '2021-09-13 16:27:50', 1, 1),
+(18, '5310073015', 'Oropeza', 68583373, 'xx@gmail.com', '', '', 'Cochabamba', '2021-09-13 16:27:50', 1, 1),
 (19, '3035717', 'Florencio Mamani Aguilar', 74315630, 'qwert@hotmail.com', '', '', 'Santivañez', '2021-09-15 11:00:42', 1, 1),
 (20, '7892965', 'Ojeda', 67455881, 'c.servonox@hotmail.com', '', '', 'Cochabamba', '2021-09-16 10:48:13', 1, 1),
-(21, '7132834013', 'Luis Miguel Carbajal Salazar', 76829671, 'dextermaldonado17@gmail.com', '', '', 'Yacuiba', '2021-09-18 11:21:56', 1, 1);
+(21, '7132834013', 'Luis Miguel Carbajal Salazar', 76829671, 'dextermaldonado17@gmail.com', '', '', 'Yacuiba', '2021-09-18 11:21:56', 1, 1),
+(22, '3753760', 'Juvenal Carrrillo', 67524762, 'carrillo_juv@hotmail.com', '', '', 'Cochabamba', '2021-09-21 11:28:47', 1, 1),
+(23, '4481010', 'Marvin Montes', 78560560, '', '', '', 'Santa Cruz', '2021-09-21 17:58:19', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -459,7 +461,26 @@ CREATE TABLE `compra` (
 INSERT INTO `compra` (`id_compra`, `documento_id`, `no_documento`, `serie`, `fecha_compra`, `proveedor_id`, `tipopago_id`, `total`, `usuario`, `dateadd`, `estatus`) VALUES
 (1, 2, 1585, '', '2021-08-05 00:00:00', 1, 1, '21000.00', 1, '2021-08-05 12:00:47', 1),
 (2, 1, 111, '56', '2021-09-18 00:00:00', 1, 1, '12855.00', 1, '2021-09-18 11:51:39', 1),
-(3, 1, 9, '12', '2021-09-18 00:00:00', 1, 1, '25000.00', 1, '2021-09-18 12:11:13', 1);
+(3, 1, 9, '12', '2021-09-18 00:00:00', 1, 1, '25000.00', 1, '2021-09-18 12:11:13', 1),
+(4, 1, 3, '12', '2021-09-18 00:00:00', 1, 1, '48000.00', 1, '2021-09-18 20:46:05', 1),
+(5, 1, 1, '12', '2021-09-18 00:00:00', 1, 1, '50000.00', 1, '2021-09-18 20:52:39', 1),
+(6, 1, 4, '12', '2021-09-18 00:00:00', 1, 1, '24000.00', 1, '2021-09-18 21:34:38', 1),
+(7, 1, 1, '12', '2021-09-18 00:00:00', 1, 1, '25000.00', 1, '2021-09-19 10:04:35', 1),
+(8, 1, 1, '12', '2021-09-19 00:00:00', 1, 1, '24000.00', 1, '2021-09-19 10:20:17', 1),
+(9, 1, 1, '12', '2021-09-19 00:00:00', 1, 1, '25000.00', 1, '2021-09-19 10:34:03', 1),
+(10, 1, 1, '12', '2021-09-19 00:00:00', 1, 1, '24000.00', 1, '2021-09-19 10:39:18', 1),
+(11, 1, 1, '12', '2021-09-19 00:00:00', 1, 1, '25000.00', 1, '2021-09-19 10:54:34', 1),
+(12, 1, 78, '8', '2021-09-19 00:00:00', 1, 1, '24000.00', 1, '2021-09-19 11:10:22', 1),
+(13, 1, 1, '12', '2021-09-20 00:00:00', 1, 1, '25000.00', 1, '2021-09-20 11:21:07', 1),
+(14, 1, 100, '100', '2021-09-20 00:00:00', 1, 1, '24000.00', 1, '2021-09-20 11:24:36', 1),
+(15, 1, 200, '1000', '2021-09-20 00:00:00', 1, 1, '25000.00', 1, '2021-09-20 11:59:43', 1),
+(16, 1, 300, '100', '2021-09-20 00:00:00', 1, 1, '24000.00', 1, '2021-09-20 12:06:30', 1),
+(17, 1, 400, '300', '2021-09-20 00:00:00', 1, 1, '2400.00', 1, '2021-09-20 12:15:42', 1),
+(18, 1, 500, '300', '2021-09-20 00:00:00', 1, 1, '24000.00', 1, '2021-09-20 12:26:08', 1),
+(19, 1, 1, '12', '2021-09-21 00:00:00', 1, 1, '24000.00', 1, '2021-09-21 14:24:36', 1),
+(20, 1, 1, '1', '2021-09-21 00:00:00', 1, 1, '24000.00', 1, '2021-09-21 14:37:20', 1),
+(21, 1, 14, '12', '2021-09-21 00:00:00', 1, 1, '25000.00', 1, '2021-09-21 16:22:45', 1),
+(22, 1, 1, '7', '2021-09-21 00:00:00', 1, 1, '25000.00', 1, '2021-09-21 17:02:51', 1);
 
 -- --------------------------------------------------------
 
@@ -526,7 +547,9 @@ INSERT INTO `contacto_pedido` (`id_contacto`, `nombre`, `telefono`, `email`, `ni
 (4, 'alvaro ende', 56547896, 'sdf@hotmail.com', '5229263017', 'ende', 'Av. capitan ustariz'),
 (5, 'gonzales', 5916759825, 'nilton_bsb@hotmail.com', '5229263017', 'xxxx', 'Av. capitan ustariz'),
 (6, 'Alan Guitierrez', 71490884, 'alan.guitierrez@elfec.bo', '1023213028', 'Elfec SA', 'Heorinas'),
-(7, 'Dexter Yalo Maldonado', 76829671, '123@gmail.com', '10635725', 'Dexter Yalo Maldonado', 'Yacuiba');
+(7, 'Dexter Yalo Maldonado', 76829671, '123@gmail.com', '10635725', 'Dexter Yalo Maldonado', 'Yacuiba'),
+(8, 'cARLOS', 45656767, 'sdf@hotmail.com', '89089089', 'Semapa', 'cIRCUNVALACION'),
+(9, 'gonzales', 5916759825, 'nilton_bsb@hotmail.com', '5229263017', 'elfec', 'Av. capitan ustariz');
 
 -- --------------------------------------------------------
 
@@ -568,7 +591,9 @@ INSERT INTO `detallefactura` (`correlativo`, `nofactura`, `codproducto`, `cantid
 (21, 20, 44, 1, '170.00', 1),
 (22, 21, 2, 1, '3500.00', 1),
 (23, 22, 2, 1, '3500.00', 1),
-(24, 23, 54, 1, '190.00', 1);
+(24, 23, 54, 1, '190.00', 1),
+(25, 24, 178, 1, '380.00', 1),
+(26, 25, 177, 1, '150.00', 1);
 
 -- --------------------------------------------------------
 
@@ -599,7 +624,12 @@ INSERT INTO `detalle_pedido` (`id_detalle`, `pedido_id`, `codproducto`, `cantida
 (7, 4, 50, 1, '200.00', 1),
 (8, 5, 50, 2, '200.00', 1),
 (9, 6, 18, 2, '290.00', 1),
-(10, 7, 2, 1, '3500.00', 1);
+(10, 7, 2, 1, '3500.00', 1),
+(11, 8, 175, 1, '2650.00', 1),
+(12, 8, 155, 1, '6300.00', 1),
+(13, 8, 131, 1, '4200.00', 1),
+(14, 9, 176, 1, '190.00', 1),
+(15, 9, 175, 1, '2650.00', 1);
 
 -- --------------------------------------------------------
 
@@ -659,9 +689,28 @@ CREATE TABLE `entradas` (
 --
 
 INSERT INTO `entradas` (`correlativo`, `compra_id`, `codproducto`, `fecha`, `cantidad`, `precio_compra`, `precio`, `impuestoid`, `usuario_id`, `estado`) VALUES
-(1, 1, 2, '2021-08-05 12:00:47', 6, '3500.00', '3500.00', 1, 1, 1),
+(1, 1, 2, '2021-08-05 12:00:47', 6, '2500.00', '3500.00', 1, 1, 1),
 (2, 2, 2, '2021-09-18 11:51:39', 5, '2571.00', '3339.83', 1, 1, 1),
-(3, 3, 2, '2021-09-18 12:11:13', 10, '2500.00', '3124.49', 1, 1, 1);
+(3, 3, 2, '2021-09-18 12:11:13', 10, '2500.00', '3124.49', 1, 1, 1),
+(4, 4, 2, '2021-09-18 20:46:05', 20, '2400.00', '2450.00', 1, 1, 1),
+(5, 5, 2, '2021-09-18 20:52:39', 20, '2500.00', '2547.62', 1, 1, 1),
+(6, 6, 2, '2021-09-18 21:34:39', 10, '2400.00', '2500.00', 1, 1, 1),
+(7, 7, 2, '2021-09-19 10:04:35', 10, '2500.00', '2590.91', 1, 1, 1),
+(8, 8, 2, '2021-09-19 10:20:17', 10, '2400.00', '2500.00', 1, 1, 1),
+(9, 9, 2, '2021-09-19 10:34:03', 10, '2500.00', '2590.91', 1, 1, 1),
+(10, 10, 2, '2021-09-19 10:39:18', 10, '2400.00', '2500.00', 1, 1, 1),
+(11, 11, 2, '2021-09-19 10:54:34', 10, '2500.00', '2590.91', 1, 1, 1),
+(12, 12, 2, '2021-09-19 11:10:22', 10, '2400.00', '2500.00', 1, 1, 1),
+(13, 13, 2, '2021-09-20 11:21:07', 10, '2500.00', '2590.91', 1, 1, 1),
+(14, 14, 2, '2021-09-20 11:24:37', 10, '2400.00', '2500.00', 1, 1, 1),
+(15, 15, 2, '2021-09-20 11:59:43', 10, '2500.00', '2590.91', 1, 1, 1),
+(16, 16, 2, '2021-09-20 12:06:30', 10, '2400.00', '2500.00', 1, 1, 1),
+(17, 17, 2, '2021-09-20 12:15:42', 1, '2400.00', '2950.00', 1, 1, 1),
+(18, 18, 2, '2021-09-20 12:26:08', 10, '2400.00', '2500.00', 1, 1, 1),
+(19, 19, 2, '2021-09-21 14:24:36', 10, '2400.00', '2500.00', 1, 1, 1),
+(20, 20, 2, '2021-09-21 14:37:20', 10, '2400.00', '2500.00', 1, 1, 1),
+(21, 21, 2, '2021-09-21 16:22:45', 10, '2500.00', '2490.91', 1, 1, 1),
+(22, 22, 2, '2021-09-21 17:02:51', 10, '2500.00', '2490.91', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -708,7 +757,9 @@ INSERT INTO `factura` (`nofactura`, `serieid`, `factura_serie`, `fecha`, `usuari
 (20, 1, 20, '2021-09-06', 1, 14, '170.00', '10.00', 1, '160.00', '2021-09-06 16:44:16', 1),
 (21, 1, 21, '2021-09-10', 1, 17, '3500.00', '250.00', 1, '3250.00', '2021-09-10 18:12:51', 1),
 (22, 1, 22, '2021-09-13', 1, 18, '3500.00', '200.00', 1, '3300.00', '2021-09-13 16:33:43', 1),
-(23, 1, 23, '2021-09-13', 1, 18, '190.00', '6.00', 1, '184.00', '2021-09-13 16:34:41', 1);
+(23, 1, 23, '2021-09-13', 1, 18, '190.00', '6.00', 1, '184.00', '2021-09-13 16:34:41', 1),
+(24, 1, 24, '2021-09-21', 1, 1, '380.00', '30.00', 1, '350.00', '2021-09-21 17:55:48', 1),
+(25, 1, 25, '2021-09-21', 1, 1, '150.00', '60.00', 1, '90.00', '2021-09-21 17:56:14', 1);
 
 -- --------------------------------------------------------
 
@@ -810,7 +861,9 @@ INSERT INTO `pedido` (`id_pedido`, `fecha`, `contacto_id`, `tipopago_id`, `total
 (4, '2021-09-01', 4, 2, '200.00', 3),
 (5, '2021-09-01', 5, 1, '400.00', 1),
 (6, '2021-09-17', 6, 1, '580.00', 1),
-(7, '2021-09-18', 7, 1, '3500.00', 1);
+(7, '2021-09-18', 7, 1, '3500.00', 1),
+(8, '2021-09-21', 8, 1, '13150.00', 1),
+(9, '2021-09-21', 9, 1, '2840.00', 1);
 
 -- --------------------------------------------------------
 
@@ -866,9 +919,9 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`codproducto`, `codebar`, `producto`, `descripcion`, `categoria`, `marca_id`, `presentacion_id`, `precio_compra`, `precio`, `impuesto_id`, `existencia`, `existencia_minima`, `ubicacion_id`, `date_add`, `usuario_id`, `estatus`, `foto`, `coditem`) VALUES
-(2, '2975545645', 'Juego de Taladros Milwaukee M18', 'Juego de Taladros Milwaukee con dos baterias de 5 Amp , cargador y maletín', 1, 1, 1, '2571.00', '3450.00', 1, 6, 1, 1, '2021-08-05 11:02:01', 2, 1, 'img_ee9b47dbadcbe07d58f77dc6f2f84b81.jpg', '2997-22'),
-(16, '45242536771', 'Taladro Percutor M18', 'Taladro Percutor Milwaukee M18 con dos baterías de 5 Amp, cargador 220v y maletín', 1, 1, 1, '2118.00', '2650.00', 1, 15, 1, 1, '2021-08-10 16:37:14', 1, 1, 'img_463cfaee1387d2f4e3a71140e6e706fa.jpg', '2804-22'),
-(18, '45242251209', 'Alicate pelacable Milwaukee', 'Alicate pelacable 6 en 1 Milwaukee', 2, 1, 1, '135.00', '290.00', 1, 30, 1, 1, '2021-08-25 16:16:07', 1, 1, 'img_d2c5c14c86bea4c9d4c0593349ae1aee.jpg', '48-22-3079'),
+(2, '2975545645', 'Juego de Taladros Milwaukee M18', 'Juego de Taladros Milwaukee con dos baterias de 5 Amp , cargador y maletín', 1, 1, 1, '2490.91', '3500.00', 1, 11, 1, 1, '2021-08-05 11:02:01', 2, 1, 'img_ee9b47dbadcbe07d58f77dc6f2f84b81.jpg', '2997-22'),
+(16, '45242536771', 'Taladro Percutor M18', 'Taladro Percutor Milwaukee M18 con dos baterías de 5 Amp, cargador 220v y maletín', 1, 1, 1, '2082.00', '2650.00', 1, 18, 1, 1, '2021-08-10 16:37:14', 1, 1, 'img_463cfaee1387d2f4e3a71140e6e706fa.jpg', '2804-22'),
+(18, '45242251209', 'Alicate pelacable Milwaukee 6 en 1', 'Alicate pelacable 6 en 1 Milwaukee', 2, 1, 1, '135.00', '290.00', 1, 30, 1, 1, '2021-08-25 16:16:07', 1, 1, 'img_d2c5c14c86bea4c9d4c0593349ae1aee.jpg', '48-22-3079'),
 (31, '45242509041', 'Juego de Taladros Milwaukee M12', 'Juego de Taladros Milwaukee M12 con bateria de 2 Amp. y Bateria de 4 Amp. cargador y Bolso', 1, 1, 1, '1617.00', '2350.00', 1, 18, 1, 1, '2021-08-30 16:13:45', 1, 1, 'img_87d91f784495b4193af4de09fd312016.jpg', '2598-22'),
 (32, '45247235331', 'Brocas Titanio Milwaukee', 'Juego de Brocas de Titanio Milwaukee de 15 unidades de entrada Hexagonal', 2, 1, 1, '170.00', '350.00', 1, 10, 1, 1, '2021-08-30 16:30:22', 1, 1, 'img_5ef7b799e1bf5c3a505c477ec2ccd575.jpg', '48-89-4630'),
 (33, '45242502338', 'Llave de Impacto 3/4', 'Llave de Impacto Milwaukee M18 3/4\" de 1500 libras de torque Solo herramienta Suelta', 1, 1, 1, '2050.00', '3500.00', 1, 2, 1, 1, '2021-08-30 16:59:08', 1, 1, 'img_04e6bfe967b3b9a5ddb2e5bb851d7317.jpg', '2864-20'),
@@ -978,7 +1031,7 @@ INSERT INTO `producto` (`codproducto`, `codebar`, `producto`, `descripcion`, `ca
 (137, '045242566280', 'Amoladora Milwaukee M18 4 1/2\" a 5\" paleta abajo, solo Herramienta', 'Amoladora Milwaukee M18 4 1/2\" a 5\" paleta abajo, solo Herramienta', 1, 1, 1, '700.00', '2000.00', 1, 9, 1, 1, '2021-09-15 15:10:26', 1, 1, 'img_007533778bf5237421dfb969a0f19103.jpg', '2880-20'),
 (138, '75486', 'Atornillador de Impacto Milwaukee M12 Solo Herramienta', 'Atornillador de Impacto Milwaukee M12 Solo Herramienta', 1, 1, 1, '600.00', '950.00', 1, 4, 1, 1, '2021-09-15 15:19:49', 1, 1, 'img_3cbd10e146e3e43446c914cfb0b57378.jpg', '2553-20'),
 (139, '7777777', 'Atornillador de Impacto Milwaukee M12', 'Atornillador de Impacto Milwaukee M12, dos baterias de 2 Amp, cargador y Maletin.', 1, 1, 1, '1011.00', '1600.00', 1, 1, 1, 1, '2021-09-15 15:26:01', 1, 1, 'img_6e533bceb4c479aa01a3697d6094a530.jpg', '2553-22'),
-(140, '045242574377', 'Atornillador de Impacto Milwaukee M12', 'Atornillador de Impacto Milwaukee M12', 1, 1, 1, '838.00', '1250.00', 1, 5, 1, 1, '2021-09-15 15:32:56', 1, 1, 'img_13e75747964a821d2877112021eda321.jpg', '2553-21'),
+(140, '45242574377', 'Atornillador de Impacto Milwaukee M12', 'Atornillador de Impacto Milwaukee M12', 1, 1, 1, '838.00', '1300.00', 1, 5, 1, 1, '2021-09-15 15:32:56', 1, 1, 'img_13e75747964a821d2877112021eda321.jpg', '2553-21'),
 (141, '8925075578', 'Disco para Melamina Diablo 7 1/2\" de 60 Dientes', 'Disco para Melamina Diablo 7 1/2\" de 60 Dientes', 8, 3, 1, '185.00', '380.00', 1, 13, 1, 1, '2021-09-15 15:48:08', 1, 1, 'img_2a27b1e635f3788b7aa1128527b1ce42.jpg', 'D0760'),
 (142, '8925138853', 'Disco para Aluminio Diablo de 10\" de 100 dientes', 'Disco para Aluminio Diablo de 10\" de 100 dientes', 8, 3, 1, '510.00', '1000.00', 1, 8, 1, 1, '2021-09-15 15:59:51', 1, 1, 'img_6dcd82beee85a6cdbe2237d0a8f2393d.jpg', 'D10100N'),
 (143, '045242472628', 'Bateria Milwaukee M12 6 Amp.', 'Batería Milwaukee M12 6 Amp.', 4, 1, 1, '100.00', '600.00', 1, 7, 1, 1, '2021-09-15 16:13:51', 1, 1, 'img_a0b5f49400b2bf78f3595fbc4e3da47e.jpg', '48-11-2460'),
@@ -1003,7 +1056,20 @@ INSERT INTO `producto` (`codproducto`, `codebar`, `producto`, `descripcion`, `ca
 (162, '045242605958', 'Punta de Impacto Milwaukee 3 1/2\" PH2', 'Punta de Impacto Milwaukee 3 1/2\" PH2', 5, 1, 1, '49.00', '85.00', 1, 10, 1, 1, '2021-09-18 10:53:25', 1, 1, 'img_92bbf04538214b059f5faed0653f4c47.jpg', '48-32-4662'),
 (163, '045242606085', 'Punta de Impacto Milwaukee de 2\" PH2', 'Punta de Impacto Milwaukee de 2\" PH2', 5, 1, 1, '34.00', '40.00', 1, 10, 1, 1, '2021-09-18 10:58:39', 1, 1, 'img_187d0d3e035d33c52e5e868610c159d8.jpg', '48-32-4962'),
 (164, '008925153955', 'Hoja para Caladora Diablo para madera corte fino', 'Hojas para Caladora madera corte fino 4 5/8\" largo DIABLO', 2, 3, 1, '23.00', '60.00', 1, 30, 1, 1, '2021-09-18 11:06:59', 1, 1, 'img_052a96985f3c5f210c382c6f6d86a079.jpg', 'DJT308BFP5'),
-(165, '045242616787', 'Juego de Tira Lineas Milwaukee 2 piezas Rojo y Azul', 'Juego de Tira Lineas Milwaukee 2 piezas Rojo y Azul', 2, 1, 1, '125.00', '350.00', 1, 5, 1, 1, '2021-09-18 12:00:38', 1, 1, 'img_4003acc82a6cfa5931d34ff2792ff885.jpg', '48-22-3986W');
+(165, '045242616787', 'Juego de Tira Lineas Milwaukee 2 piezas Rojo y Azul', 'Juego de Tira Lineas Milwaukee 2 piezas Rojo y Azul', 2, 1, 1, '125.00', '350.00', 1, 5, 1, 1, '2021-09-18 12:00:38', 1, 1, 'img_4003acc82a6cfa5931d34ff2792ff885.jpg', '48-22-3986W'),
+(166, '045242325078', 'Abrazadera Milwaukee 6\" milwaukee C-clamp', 'Abrazadera Milwaukee 6\" milwaukee C-clamp', 2, 1, 1, '105.00', '200.00', 1, 1, 1, 1, '2021-09-20 08:55:07', 1, 1, 'img_ee398ffdac1ec48f49b75f9be4670f70.jpg', '48-22-3532'),
+(167, '045242541362', 'Cargadro Simultanero Milwaukee M18 rapidCharge', 'Cargadro Simultanero Milwaukee M18 rapidCharge', 1, 1, 1, '950.00', '1500.00', 1, 2, 1, 1, '2021-09-20 08:59:15', 1, 1, 'img_037507434aa0bfdf4eb1126b442a202d.jpg', '48-59-1802'),
+(168, '045242597826', 'Inflador Milwaukee M12 con bateria de 2 Amp y Cargador', 'Inflador Milwaukee M12 con bateria de 2 Amp y Cargador', 1, 1, 1, '830.00', '1850.00', 1, 3, 1, 1, '2021-09-20 09:06:31', 1, 1, 'img_7a0558a98ef6b535a44a9307e0c06d66.jpg', '2475-21CP'),
+(169, '44555666', 'Porta Silicona Milwaukee M12 Solo Herramienta', 'Porta Silicona Milwaukee M12 Solo Herramienta', 1, 1, 1, '1175.00', '1650.00', 1, 1, 1, 1, '2021-09-20 09:13:08', 1, 1, 'img_dc23f8d030c3a50466cc69e5c0c23e65.jpg', '2441-20'),
+(170, '996633', 'Sopladora Milwaukee M18 Solo herramienta', 'Sopladora Milwaukee M18 Solo herramienta', 1, 1, 1, '700.00', '900.00', 1, 0, 1, 1, '2021-09-20 09:17:10', 1, 1, 'img_9e83ac8c51f0fe1699701324706b8eb8.jpg', '0884-20'),
+(171, '045242332434', 'Pulidora Milwaukee M12 Solo Herramienta.', 'Pulidora Milwaukee M12 Solo Herramienta.', 1, 1, 1, '1246.00', '1600.00', 1, 1, 1, 1, '2021-09-20 09:22:14', 1, 1, 'img_8d9abd9fdc59b26c61724ee53a224466.jpg', '2438-20'),
+(172, '045242508174', 'Aspiradora tipo Mochila 3 en 1 Milwaukee M18 Solo Herramienta', 'Aspiradora tipo Mochila 3 en 1 Milwaukee M18 Solo Herramienta', 1, 1, 1, '2429.00', '3000.00', 1, 1, 1, 1, '2021-09-20 09:28:44', 1, 1, 'img_371a4790f77e7ef86a681d8a87a79b6d.jpg', '0885-20'),
+(173, '8925135487', 'Disco Diablo para Metal Dentado de 14', 'Disco Diablo para Metal Dentado 14\"', 8, 3, 1, '676.00', '1200.00', 1, 2, 1, 1, '2021-09-20 09:39:19', 1, 1, 'img_30b31a93618d6d1b893609d6167209d6.jpg', 'D1490CF'),
+(174, '77553399', 'Cargador Rapido Milwaukee M18/M12', 'Cargador Rápido Milwaukee M18/M12', 1, 1, 1, '340.00', '700.00', 1, 14, 1, 1, '2021-09-20 10:30:33', 1, 1, 'img_49e208151b3261fa866ca61853fcaccf.jpg', '48-59-1808'),
+(175, '7553395511', 'Atornillador de Impacto Milwaukee 3 Generacion 1/4\" M18', 'Atornillador de Impacto Milwaukee M18 3 Generación 1/4\" M18', 1, 1, 1, '1666.00', '2650.00', 1, 5, 1, 1, '2021-09-20 10:33:10', 1, 1, 'img_34e5d2ee67216ff0f24b96158dbcef5f.jpg', '2853-22'),
+(176, '045242302529', 'Adaptador de Dado para atornillador Milwaukee de 2\" 3 piezas', 'Adaptador de Dado para atornillador Milwaukee de 2\" 3 piezas', 2, 1, 1, '80.00', '190.00', 1, 8, 1, 1, '2021-09-20 10:38:53', 1, 1, 'img_1a9570d036648ebcf1cfe757257a2c01.jpg', '48-32-5033'),
+(177, '045242552412', 'Lentes de Trabajo Milwaukee Oscuros', 'Lentes de Trabajo Milwaukee Oscuros', 2, 1, 1, '85.00', '150.00', 1, 1, 1, 1, '2021-09-21 17:46:50', 1, 1, 'img_39469a47519e153b56983f7ac4be3b71.jpg', '48-73-2005'),
+(178, '008925137610', 'Disco par Corte Metal Diamantado Diablo 5\"', 'Disco par Corte Metal Diamantado Diablo 5\", corte Seco', 8, 3, 1, '111.00', '380.00', 1, 1, 1, 1, '2021-09-21 17:53:01', 1, 1, 'img_165cb0617f5effba29c81d0eb42a7457.jpg', 'DDD050DIA101F');
 
 -- --------------------------------------------------------
 
@@ -1354,37 +1420,37 @@ ALTER TABLE `categoria_producto`
 -- AUTO_INCREMENT de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `contacto_pedido`
 --
 ALTER TABLE `contacto_pedido`
-  MODIFY `id_contacto` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_contacto` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `detallefactura`
 --
 ALTER TABLE `detallefactura`
-  MODIFY `correlativo` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `correlativo` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_pedido`
 --
 ALTER TABLE `detalle_pedido`
-  MODIFY `id_detalle` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_detalle` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_temp`
 --
 ALTER TABLE `detalle_temp`
-  MODIFY `correlativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=590;
+  MODIFY `correlativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=633;
 
 --
 -- AUTO_INCREMENT de la tabla `documento`
@@ -1396,13 +1462,13 @@ ALTER TABLE `documento`
 -- AUTO_INCREMENT de la tabla `entradas`
 --
 ALTER TABLE `entradas`
-  MODIFY `correlativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `correlativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `nofactura` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `nofactura` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `facturas`
@@ -1426,7 +1492,7 @@ ALTER TABLE `marca`
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `id_pedido` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_pedido` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `presentacion_producto`
@@ -1438,7 +1504,7 @@ ALTER TABLE `presentacion_producto`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `codproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
+  MODIFY `codproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
